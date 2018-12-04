@@ -60,15 +60,22 @@ public class frmListaMedidores extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre Celda", "Marca", "Modelo", "N° Serie Medidor", "Dirección IP", "Nombre Archivo", "Auto"
+                "Código PC", "Siubestación Red", "Nivel de Tensión", "Dispositivo Línea", "Marca", "Modelo", "Nombre Archivo", "Dirección IP", "Auto"
             }
         ) {
             Class[] types = new Class [] {
-                Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Boolean.class
+                Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(jTable1);
