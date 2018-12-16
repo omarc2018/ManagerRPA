@@ -1,6 +1,7 @@
 
-package CapaUsuario;
+package capa.usuario;
 
+import capa.negocio.Usuario;
 import javax.swing.JOptionPane;
 
 
@@ -93,12 +94,10 @@ public class frmAcceso extends javax.swing.JFrame {
 
     private void btnEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseClicked
         // Entrar al sistema:
-        String Usuario = "admin";
-        String Contraseña = "789";
+        Usuario admin = new Usuario("admin", "789");
         String Pass = new String(txtContraseña.getPassword());
-
-        if(txtUsuario.getText().equals(Usuario)&& Pass.equals(Contraseña)){
-            frmManager vAdministrador = new frmManager();
+        if(txtUsuario.getText().equals(admin.usuario)&& Pass.equals(admin.contraseña)){
+            frmAdministrador vAdministrador = new frmAdministrador();
             vAdministrador.setVisible(true);
             dispose();
         }

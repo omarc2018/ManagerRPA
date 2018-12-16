@@ -1,4 +1,4 @@
-package CapaDatos;
+package capa.datos;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,6 +9,8 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.lang.String;
+import static java.lang.System.getProperty;
 import static javax.management.Query.value;
 
 
@@ -30,7 +32,6 @@ public class ManagerRPA {
             System.out.print(e.toString());
         }
         
-        System.out.println("Propiedades");
         
         for (Enumeration e = oPropiedades.keys(); e.hasMoreElements(); ){
             Object obj = e.nextElement();
@@ -40,12 +41,11 @@ public class ManagerRPA {
         oPropiedades.setProperty("SubestacionRed", "SESOC");
         oPropiedades.setProperty("NivelTension", "138");
         oPropiedades.setProperty("DispositivoLinea", "L-1022");
-        oPropiedades.setProperty("NombreArchivo", value("SubestacionRed")+"__"+value("DispositivoLinea")+"__"+value("NivelTension"));
+        oPropiedades.setProperty("NombreArchivo", ".csv");
         oPropiedades.setProperty("IP", "10.122.11.402");
-        oPropiedades.remove("IED");
         
         try{
-            oPropiedades.store(new FileWriter("D:\\Documents\\NetBeansProjects\\ManagerRPA\\src\\CapaDatos\\Configuracion.properties"), "Se actualizó la configuración");
+            oPropiedades.store(new FileWriter("D:\\Documents\\NetBeansProjects\\ManagerRPA\\src\\Capa\\Datos\\Configuracion.properties"), "Se actualizó la configuración");
         }
         catch (IOException ex){
             Logger.getLogger(ManagerRPA.class.getName()).log(Level.SEVERE, null, ex);

@@ -3,6 +3,12 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="mnuBar">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Administrador"/>
+      </AccessibilityProperties>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="mnuArchivo">
           <Properties>
@@ -44,25 +50,17 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <Menu class="javax.swing.JMenu" name="mnuEquipos">
+            <Menu class="javax.swing.JMenu" name="mnuGestionar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Equipos"/>
+                <Property name="text" type="java.lang.String" value="Gestionar"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="itmNuevo">
+                <MenuItem class="javax.swing.JMenuItem" name="itmDispositivos">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Nuevo"/>
+                    <Property name="text" type="java.lang.String" value="Dispositivos"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmNuevoActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="itmLista">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Lista"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmListaActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmDispositivosActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

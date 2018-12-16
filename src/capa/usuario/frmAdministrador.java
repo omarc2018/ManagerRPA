@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CapaUsuario;
+package capa.usuario;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -12,10 +12,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Omar Castillo
  */
-public class frmManager extends javax.swing.JFrame {
+public class frmAdministrador extends javax.swing.JFrame {
 
     private FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivo properties", "properties");
-    public frmManager() {
+    public frmAdministrador() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -41,9 +41,8 @@ public class frmManager extends javax.swing.JFrame {
         mnuHerramientas = new javax.swing.JMenu();
         mnuAdministrador = new javax.swing.JMenu();
         itmUsuario = new javax.swing.JMenuItem();
-        mnuEquipos = new javax.swing.JMenu();
-        itmNuevo = new javax.swing.JMenuItem();
-        itmLista = new javax.swing.JMenuItem();
+        mnuGestionar = new javax.swing.JMenu();
+        itmDispositivos = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
         itmAcerca = new javax.swing.JMenuItem();
 
@@ -65,6 +64,8 @@ public class frmManager extends javax.swing.JFrame {
         });
         getContentPane().add(txtRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 350, 30));
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 400, 190));
+
+        mnuBar.setToolTipText("");
 
         mnuArchivo.setText("Archivo");
 
@@ -95,25 +96,17 @@ public class frmManager extends javax.swing.JFrame {
 
         mnuHerramientas.add(mnuAdministrador);
 
-        mnuEquipos.setText("Equipos");
+        mnuGestionar.setText("Gestionar");
 
-        itmNuevo.setText("Nuevo");
-        itmNuevo.addActionListener(new java.awt.event.ActionListener() {
+        itmDispositivos.setText("Dispositivos");
+        itmDispositivos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itmNuevoActionPerformed(evt);
+                itmDispositivosActionPerformed(evt);
             }
         });
-        mnuEquipos.add(itmNuevo);
+        mnuGestionar.add(itmDispositivos);
 
-        itmLista.setText("Lista");
-        itmLista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itmListaActionPerformed(evt);
-            }
-        });
-        mnuEquipos.add(itmLista);
-
-        mnuHerramientas.add(mnuEquipos);
+        mnuHerramientas.add(mnuGestionar);
 
         mnuBar.add(mnuHerramientas);
 
@@ -125,6 +118,7 @@ public class frmManager extends javax.swing.JFrame {
         mnuBar.add(mnuAyuda);
 
         setJMenuBar(mnuBar);
+        mnuBar.getAccessibleContext().setAccessibleName("Administrador");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -149,17 +143,11 @@ public class frmManager extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itmAbrirActionPerformed
 
-    private void itmNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmNuevoActionPerformed
-        frmNuevoDevice vNuevoDevice = new frmNuevoDevice();
+    private void itmDispositivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmDispositivosActionPerformed
+        frmGestionarDispositivos vNuevoDevice = new frmGestionarDispositivos();
         vNuevoDevice.setVisible(true);
         dispose();
-    }//GEN-LAST:event_itmNuevoActionPerformed
-
-    private void itmListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmListaActionPerformed
-        frmListaMedidores vLista = new frmListaMedidores();
-        vLista.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_itmListaActionPerformed
+    }//GEN-LAST:event_itmDispositivosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,20 +166,21 @@ public class frmManager extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmManager().setVisible(true);
+                new frmAdministrador().setVisible(true);
             }
         });
     }
@@ -199,8 +188,7 @@ public class frmManager extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itmAbrir;
     private javax.swing.JMenuItem itmAcerca;
-    private javax.swing.JMenuItem itmLista;
-    private javax.swing.JMenuItem itmNuevo;
+    private javax.swing.JMenuItem itmDispositivos;
     private javax.swing.JMenuItem itmSalir;
     private javax.swing.JMenuItem itmUsuario;
     private javax.swing.JLabel lblFondo;
@@ -210,7 +198,7 @@ public class frmManager extends javax.swing.JFrame {
     private javax.swing.JMenu mnuArchivo;
     private javax.swing.JMenu mnuAyuda;
     private javax.swing.JMenuBar mnuBar;
-    private javax.swing.JMenu mnuEquipos;
+    private javax.swing.JMenu mnuGestionar;
     private javax.swing.JMenu mnuHerramientas;
     private javax.swing.JTextField txtNombreArchivo;
     private javax.swing.JTextField txtRuta;
