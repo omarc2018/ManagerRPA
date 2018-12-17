@@ -25,9 +25,9 @@ import javax.swing.table.DefaultTableModel;
 public class frmDispositivo extends javax.swing.JFrame {
 
     String barra = File.separator;
-    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra;
+    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra+"propiedades"+barra;
     
-    
+        
     public frmDispositivo() {
         initComponents();
         this.setLocationRelativeTo(null);

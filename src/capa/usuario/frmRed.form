@@ -92,45 +92,35 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="116" pref="116" max="-2" attributes="0"/>
-                              <Component id="txtId" max="32767" attributes="0"/>
+                              <Component id="btnAdicionarSubestacion1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Component id="btnMostrar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnModificarSubestacion1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                              <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="lblDireccionDestino" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lblPuertaEnlace" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lblNombreRed" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="txtNombreRed" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="txtPuertaEnlace" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="txtDireccionDestino" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="btnAdicionarSubestacion1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                          <Component id="btnMostrar" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnModificarSubestacion1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                          <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="lblDireccionDestino" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblPuertaEnlace" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblNombreRed" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblID" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtId" min="-2" pref="275" max="-2" attributes="0"/>
+                                  <Component id="txtNombreRed" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtPuertaEnlace" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtDireccionDestino" alignment="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

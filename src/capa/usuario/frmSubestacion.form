@@ -127,18 +127,15 @@
                                   <Component id="lblNivelTension" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblCelda" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                                       <Component id="txtNivelTension" min="-2" pref="91" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                       <Component id="lblNivelTension1" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="txtCelda" min="-2" pref="263" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="txtCelda" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -247,6 +244,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnMostrar">
               <Properties>

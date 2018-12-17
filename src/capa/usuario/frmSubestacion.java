@@ -7,6 +7,8 @@ package capa.usuario;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Formatter;
 import java.util.Properties;
 import javax.swing.JOptionPane;
@@ -18,7 +20,7 @@ import javax.swing.JOptionPane;
 public class frmSubestacion extends javax.swing.JFrame {
 
     String barra = File.separator;
-    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra;
+    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra+"propiedades"+barra;
     
     public frmSubestacion() {
         initComponents();
@@ -41,7 +43,7 @@ public class frmSubestacion extends javax.swing.JFrame {
                             crea.format("%s\r\n%s\r\n%s\r\n%s","Id="+txtId.getText(),"Nombre="+txtNombreSubestacion.getText(),
                                     "NivelTension="+txtNivelTension.getText(),"Celda="+txtCelda.getText());
                         crea.close();
-                        JOptionPane.showMessageDialog(rootPane, "Archivo creado");
+                        JOptionPane.showMessageDialog(rootPane, "Archivo creado correctamente");
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(rootPane,"No se pudo crear");
@@ -67,6 +69,60 @@ public class frmSubestacion extends javax.swing.JFrame {
                 }
             }else{
                 JOptionPane.showMessageDialog(rootPane, "El Registro no Existe");
+            }
+        }
+    }
+    
+    private void Modificar(){
+        File url = new File(directorio+txtId.getText()+".properties");
+        if (txtId.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Nombre de Registro a Modificar");
+        }else{
+            if (url.exists()) {
+                try {
+                    FileWriter editar = new FileWriter(directorio+txtId.getText()+".properties");
+                    String Id = "Id=";
+                    String Nombre = "Nombre=";
+                    String NivelTension = "NivelTension=";
+                    String Celda = "Celda=";
+                    
+                    PrintWriter guardar = new PrintWriter(editar);
+                    guardar.println(Id+txtId.getText());
+                    guardar.println(Nombre+txtNombreSubestacion.getText());
+                    guardar.println(NivelTension+txtNivelTension.getText());
+                    guardar.print(Celda+txtCelda.getText());
+                    editar.close();
+                    JOptionPane.showMessageDialog(rootPane, "Modificación de datos Correcta");
+                } catch (Exception e) {
+                    JOptionPane.showConfirmDialog(rootPane,"Error"+ e);
+                }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "El Registro No existe");
+            }
+        }
+    }
+    
+    private void Eliminar(){
+        File url = new File(directorio+txtId.getText()+".properties");
+        String btns [] = {"Eliminar", "Cancelar"};
+        if (txtId.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Ingrese el registro a eliminar");
+        }else{
+            if (url.exists()) {
+                try {
+                    FileInputStream cerrar = new FileInputStream(url);
+                    cerrar.close();
+                    System.gc();
+                    int confirmar = JOptionPane.showOptionDialog(rootPane, "¿Eliminar el registro?... "+txtId.getText(), "Eliminar", 0, 0, null, btns, null);
+                    if (confirmar == JOptionPane.YES_OPTION) {
+                        url.delete();
+                        JOptionPane.showMessageDialog(rootPane, "¡Registro eliminado permanentemente!");
+                    }
+                    if (confirmar == JOptionPane.YES_OPTION) {
+                        
+                    }
+                } catch (Exception e) {
+                }
             }
         }
     }
@@ -134,6 +190,11 @@ public class frmSubestacion extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnMostrar.setText("Mostrar");
         btnMostrar.addActionListener(new java.awt.event.ActionListener() {
@@ -160,31 +221,28 @@ public class frmSubestacion extends javax.swing.JFrame {
                         .addGroup(jPanelSubestacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombreSubestacion)
                             .addComponent(txtId)))
-                    .addGroup(jPanelSubestacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanelSubestacionLayout.createSequentialGroup()
-                            .addComponent(btnAdicionarSubestacion)
-                            .addGap(3, 3, 3)
-                            .addComponent(btnMostrar)
-                            .addGap(4, 4, 4)
-                            .addComponent(btnModificarSubestacion)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnEliminar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnCancelar))
-                        .addGroup(jPanelSubestacionLayout.createSequentialGroup()
-                            .addGroup(jPanelSubestacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblNivelTension)
-                                .addComponent(lblCelda))
-                            .addGroup(jPanelSubestacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanelSubestacionLayout.createSequentialGroup()
-                                    .addGap(54, 54, 54)
-                                    .addComponent(txtNivelTension, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(2, 2, 2)
-                                    .addComponent(lblNivelTension1)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSubestacionLayout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtCelda, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(jPanelSubestacionLayout.createSequentialGroup()
+                        .addComponent(btnAdicionarSubestacion)
+                        .addGap(3, 3, 3)
+                        .addComponent(btnMostrar)
+                        .addGap(4, 4, 4)
+                        .addComponent(btnModificarSubestacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar))
+                    .addGroup(jPanelSubestacionLayout.createSequentialGroup()
+                        .addGroup(jPanelSubestacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNivelTension)
+                            .addComponent(lblCelda))
+                        .addGap(54, 54, 54)
+                        .addGroup(jPanelSubestacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelSubestacionLayout.createSequentialGroup()
+                                .addComponent(txtNivelTension, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(2, 2, 2)
+                                .addComponent(lblNivelTension1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtCelda))))
                 .addContainerGap())
         );
         jPanelSubestacionLayout.setVerticalGroup(
@@ -302,12 +360,16 @@ public class frmSubestacion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarSubestacionActionPerformed
 
     private void btnModificarSubestacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarSubestacionActionPerformed
-        // TODO add your handling code here:
+        Modificar();
     }//GEN-LAST:event_btnModificarSubestacionActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
         Mostrar();
     }//GEN-LAST:event_btnMostrarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Eliminar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
