@@ -55,12 +55,28 @@
                 <Property name="text" type="java.lang.String" value="Gestionar"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="itmDispositivos">
+                <MenuItem class="javax.swing.JMenuItem" name="itmSubestacion">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Dispositivos"/>
+                    <Property name="text" type="java.lang.String" value="Subestaci&#xf3;n"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmDispositivosActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmSubestacionActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="itmDispositivo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Dispositivo"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmDispositivoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="itmRed">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Par&#xe1;metros de Red"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmRedActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

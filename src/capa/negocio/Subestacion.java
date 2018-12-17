@@ -10,14 +10,23 @@ package capa.negocio;
  * @author Omar Castillo
  */
 public class Subestacion {
-    String Nombre, NivelTensión, Celda;
+    String Id, Nombre, NivelTensión, Celda;
 
-    public Subestacion(String Nombre, String NivelTensión, String Celda) {
+    public Subestacion(String Id, String Nombre, String NivelTensión, String Celda) {
+        this.Id = Id;
         this.Nombre = Nombre;
         this.NivelTensión = NivelTensión;
         this.Celda = Celda;
     }
 
+    public String getId() {
+        return Id;
+    }
+
+    public void setID(String Id) {
+        this.Id = Id;
+    }
+    
     public String getNombre() {
         return Nombre;
     }

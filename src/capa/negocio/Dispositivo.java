@@ -10,16 +10,26 @@ package capa.negocio;
  * @author Omar Castillo
  */
 public class Dispositivo {
-    String Tipo, Marca, Modelo, Nombre, DireccionIP;
+    String Id, Tipo, Marca, Modelo, Nombre, DireccionIP, Archivo;
 
-    public Dispositivo(String Tipo, String Marca, String Modelo, String Nombre, String DireccionIP) {
+    public Dispositivo(String Id, String Tipo, String Marca, String Modelo, String Nombre, String DireccionIP, String Archivo) {
+        this.Id = Id;
         this.Tipo = Tipo;
         this.Marca = Marca;
         this.Modelo = Modelo;
         this.Nombre = Nombre;
         this.DireccionIP = DireccionIP;
+        this.Archivo = Archivo;
     }
 
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String Id) {
+        this.Id = Id;
+    }
+    
     public String getTipo() {
         return Tipo;
     }
@@ -60,8 +70,15 @@ public class Dispositivo {
         this.DireccionIP = DireccionIP;
     }
 
-    
-    
+    public String getArchivo() {
+        return Archivo;
+    }
+
+    public void setArchivo(String Archivo) {
+        this.Archivo = Archivo;
+    }
+
+       
     
     
 }

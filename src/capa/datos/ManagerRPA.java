@@ -1,5 +1,6 @@
 package capa.datos;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -17,9 +18,12 @@ import static javax.management.Query.value;
 
 public class ManagerRPA {
 
-    /**
-     * @param args the command line arguments
-     */
+    String barra = File.separator;
+    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra;
+    
+    
+    
+    
     public static void main(String[] args){
         Properties oPropiedades = new Properties();
         

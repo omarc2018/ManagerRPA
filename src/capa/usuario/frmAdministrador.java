@@ -42,7 +42,9 @@ public class frmAdministrador extends javax.swing.JFrame {
         mnuAdministrador = new javax.swing.JMenu();
         itmUsuario = new javax.swing.JMenuItem();
         mnuGestionar = new javax.swing.JMenu();
-        itmDispositivos = new javax.swing.JMenuItem();
+        itmSubestacion = new javax.swing.JMenuItem();
+        itmDispositivo = new javax.swing.JMenuItem();
+        itmRed = new javax.swing.JMenuItem();
         mnuAyuda = new javax.swing.JMenu();
         itmAcerca = new javax.swing.JMenuItem();
 
@@ -98,13 +100,29 @@ public class frmAdministrador extends javax.swing.JFrame {
 
         mnuGestionar.setText("Gestionar");
 
-        itmDispositivos.setText("Dispositivos");
-        itmDispositivos.addActionListener(new java.awt.event.ActionListener() {
+        itmSubestacion.setText("Subestación");
+        itmSubestacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itmDispositivosActionPerformed(evt);
+                itmSubestacionActionPerformed(evt);
             }
         });
-        mnuGestionar.add(itmDispositivos);
+        mnuGestionar.add(itmSubestacion);
+
+        itmDispositivo.setText("Dispositivo");
+        itmDispositivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmDispositivoActionPerformed(evt);
+            }
+        });
+        mnuGestionar.add(itmDispositivo);
+
+        itmRed.setText("Parámetros de Red");
+        itmRed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmRedActionPerformed(evt);
+            }
+        });
+        mnuGestionar.add(itmRed);
 
         mnuHerramientas.add(mnuGestionar);
 
@@ -143,11 +161,23 @@ public class frmAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itmAbrirActionPerformed
 
-    private void itmDispositivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmDispositivosActionPerformed
-        frmGestionarDispositivos vNuevoDevice = new frmGestionarDispositivos();
+    private void itmDispositivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmDispositivoActionPerformed
+        frmDispositivo vNuevoDevice = new frmDispositivo();
         vNuevoDevice.setVisible(true);
         dispose();
-    }//GEN-LAST:event_itmDispositivosActionPerformed
+    }//GEN-LAST:event_itmDispositivoActionPerformed
+
+    private void itmSubestacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSubestacionActionPerformed
+        frmSubestacion vNuevaSubestacion = new frmSubestacion();
+        vNuevaSubestacion.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_itmSubestacionActionPerformed
+
+    private void itmRedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmRedActionPerformed
+        frmRed vNuevaRed = new frmRed();
+        vNuevaRed.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_itmRedActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,8 +218,10 @@ public class frmAdministrador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itmAbrir;
     private javax.swing.JMenuItem itmAcerca;
-    private javax.swing.JMenuItem itmDispositivos;
+    private javax.swing.JMenuItem itmDispositivo;
+    private javax.swing.JMenuItem itmRed;
     private javax.swing.JMenuItem itmSalir;
+    private javax.swing.JMenuItem itmSubestacion;
     private javax.swing.JMenuItem itmUsuario;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblNombreArchivo;
