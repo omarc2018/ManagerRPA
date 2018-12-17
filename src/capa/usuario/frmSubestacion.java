@@ -60,8 +60,8 @@ public class frmSubestacion extends javax.swing.JFrame {
                     FileInputStream fis = new FileInputStream(url);
                     Properties mostrar = new Properties();
                     mostrar.load(fis);
-                    txtNombreSubestacion.setText(mostrar.getProperty("Subestación"));
-                    txtNivelTension.setText(mostrar.getProperty("NivelTensión"));
+                    txtNombreSubestacion.setText(mostrar.getProperty("Nombre"));
+                    txtNivelTension.setText(mostrar.getProperty("NivelTension"));
                     txtCelda.setText(mostrar.getProperty("Celda"));
                 } catch (Exception e) {
                 }

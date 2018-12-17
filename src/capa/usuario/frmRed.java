@@ -39,7 +39,7 @@ public class frmRed extends javax.swing.JFrame {
                         crea_ubicacion.mkdirs();
                         Formatter crea = new Formatter(directorio+archivo);
                             crea.format("%s\r\n%s\r\n%s\r\n%s","Id="+txtId.getText(),"Nombre="+txtNombreRed.getText(),
-                                    "NivelTension="+txtPuertaEnlace.getText(),"Celda="+txtDireccionDestino.getText());
+                                    "PuertaEnlace="+txtPuertaEnlace.getText(),"DireccionDestino="+txtDireccionDestino.getText());
                         crea.close();
                         JOptionPane.showMessageDialog(rootPane, "Archivo creado");
                     }
@@ -60,9 +60,9 @@ public class frmRed extends javax.swing.JFrame {
                     FileInputStream fis = new FileInputStream(url);
                     Properties mostrar = new Properties();
                     mostrar.load(fis);
-                    txtNombreRed.setText(mostrar.getProperty("Subestación"));
-                    txtPuertaEnlace.setText(mostrar.getProperty("NivelTensión"));
-                    txtDireccionDestino.setText(mostrar.getProperty("Celda"));
+                    txtNombreRed.setText(mostrar.getProperty("Nombre"));
+                    txtPuertaEnlace.setText(mostrar.getProperty("PuertaEnlace"));
+                    txtDireccionDestino.setText(mostrar.getProperty("DireccionDestino"));
                 } catch (Exception e) {
                 }
             }else{
