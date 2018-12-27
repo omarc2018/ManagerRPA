@@ -7,6 +7,8 @@ package capa.usuario;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Formatter;
 import java.util.Properties;
 import javax.swing.JOptionPane;
@@ -41,7 +43,7 @@ public class frmRed extends javax.swing.JFrame {
                             crea.format("%s\r\n%s\r\n%s\r\n%s","Id="+txtId.getText(),"Nombre="+txtNombreRed.getText(),
                                     "PuertaEnlace="+txtPuertaEnlace.getText(),"DireccionDestino="+txtDireccionDestino.getText());
                         crea.close();
-                        JOptionPane.showMessageDialog(rootPane, "Archivo creado");
+                        JOptionPane.showMessageDialog(rootPane, "Archivo creado correctamente");
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(rootPane,"No se pudo crear");
@@ -67,6 +69,60 @@ public class frmRed extends javax.swing.JFrame {
                 }
             }else{
                 JOptionPane.showMessageDialog(rootPane, "El Registro no Existe");
+            }
+        }
+    }
+    
+    private void Modificar(){
+        File url = new File(directorio+txtId.getText()+".properties");
+        if (txtId.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Nombre de Registro a Modificar");
+        }else{
+            if (url.exists()) {
+                try {
+                    FileWriter editar = new FileWriter(directorio+txtId.getText()+".properties");
+                    String Id = "Id=";
+                    String Nombre = "Nombre=";
+                    String PuertaEnlace = "PuertaEnlace=";
+                    String DireccionDestino= "DireccionDestino=";
+                    
+                    PrintWriter guardar = new PrintWriter(editar);
+                    guardar.println(Id+txtId.getText());
+                    guardar.println(Nombre+txtNombreRed.getText());
+                    guardar.println(PuertaEnlace+txtPuertaEnlace.getText());
+                    guardar.println(DireccionDestino+txtDireccionDestino.getText());
+                    editar.close();
+                    JOptionPane.showMessageDialog(rootPane, "Modificación de datos Correcta");
+                } catch (Exception e) {
+                    JOptionPane.showConfirmDialog(rootPane,"Error"+ e);
+                }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "El Registro No existe");
+            }
+        }
+    }
+    
+    private void Eliminar(){
+        File url = new File(directorio+txtId.getText()+".properties");
+        String btns [] = {"Eliminar", "Cancelar"};
+        if (txtId.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Ingrese el registro a eliminar");
+        }else{
+            if (url.exists()) {
+                try {
+                    FileInputStream cerrar = new FileInputStream(url);
+                    cerrar.close();
+                    System.gc();
+                    int confirmar = JOptionPane.showOptionDialog(rootPane, "¿Eliminar el registro?... "+txtId.getText(), "Eliminar", 0, 0, null, btns, null);
+                    if (confirmar == JOptionPane.YES_OPTION) {
+                        url.delete();
+                        JOptionPane.showMessageDialog(rootPane, "¡Registro eliminado permanentemente!");
+                    }
+                    if (confirmar == JOptionPane.YES_OPTION) {
+                        
+                    }
+                } catch (Exception e) {
+                }
             }
         }
     }
@@ -130,6 +186,11 @@ public class frmRed extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -202,13 +263,13 @@ public class frmRed extends javax.swing.JFrame {
 
         tblDispositivo2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Id", "Red", "Puerta Enlace", "IP Destino"
+
             }
         ));
         tblDispositivo2.setColumnSelectionAllowed(true);
@@ -272,7 +333,7 @@ public class frmRed extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModificarSubestacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarSubestacion1ActionPerformed
-        // TODO add your handling code here:
+        Modificar();
     }//GEN-LAST:event_btnModificarSubestacion1ActionPerformed
 
     private void btnAdicionarSubestacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarSubestacion1ActionPerformed
@@ -288,6 +349,10 @@ public class frmRed extends javax.swing.JFrame {
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
         Mostrar();
     }//GEN-LAST:event_btnMostrarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Eliminar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments

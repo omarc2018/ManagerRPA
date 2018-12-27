@@ -13,6 +13,8 @@ import com.sun.prism.shader.FillEllipse_ImagePattern_AlphaTest_Loader;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Formatter;
 import java.util.Properties;
 import javax.swing.JOptionPane;
@@ -34,11 +36,11 @@ public class frmDispositivo extends javax.swing.JFrame {
     }
     
     private void Crear(){
-            String archivo = txtId.getText()+".properties";
+            String archivo = txtNombreDispositivo.getText()+".properties";
             File crea_ubicacion = new File(directorio);
             File crea_archivo = new File(directorio+archivo);
             
-            if (txtTipo.getText().equals("")) {
+            if (cbxTipo.getSelectedItem().equals("")) {
                 JOptionPane.showMessageDialog(rootPane,"No hay ID");
         }else{
                 try {
@@ -47,11 +49,11 @@ public class frmDispositivo extends javax.swing.JFrame {
                     }else{
                         crea_ubicacion.mkdirs();
                         Formatter crea = new Formatter(directorio+archivo);
-                            crea.format("%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s","Id="+txtId.getText(),"Tipo="+txtTipo.getText(),
-                                    "Marca="+txtMarca.getText(),"Modelo="+txtModelo.getText(),"NombreDispositivo="+txtNombreDispositivo.getText(),
-                                    "DireccionIP="+txtDireccionIP.getText(),"NombreArchivo="+txtNombreArchivo.getText()/*frmSubestacion.txtNombreSubestacion.getText()+"__"+frmSubestacion.txtCelda.getText()+"__"+frmSubestacion.txtNivelTension.getText()*/);
+                            crea.format("%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s","NombreDispositivo="+txtNombreDispositivo.getText(),"Tipo="+cbxTipo.getSelectedItem(),
+                                    "Marca="+txtMarca.getText(),"Modelo="+txtModelo.getText(),"NumeroSerie="+txtNumeroSerie.getText(),
+                                    "IP="+txtDireccionIP.getText(),"NombreArchivo="+txtNombreArchivo.getText());
                         crea.close();
-                        JOptionPane.showMessageDialog(rootPane, "Archivo creado");
+                        JOptionPane.showMessageDialog(rootPane, "Archivo creado correctamente");
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(rootPane,"No se pudo crear");
@@ -61,8 +63,8 @@ public class frmDispositivo extends javax.swing.JFrame {
         }
     
     private void Mostrar(){
-        File url = new File(directorio+txtId.getText()+".properties");
-        if (txtId.getText().equals("")){
+        File url = new File(directorio+txtNombreDispositivo.getText()+".properties");
+        if (txtNombreDispositivo.getText().equals("")){
             JOptionPane.showMessageDialog(rootPane, "Indique el ID para Mostrar");
         }else{
             if (url.exists()) {
@@ -70,16 +72,76 @@ public class frmDispositivo extends javax.swing.JFrame {
                     FileInputStream fis = new FileInputStream(url);
                     Properties mostrar = new Properties();
                     mostrar.load(fis);
-                    txtTipo.setText(mostrar.getProperty("Tipo"));
+                    cbxTipo.setSelectedItem(mostrar.getProperty("Tipo"));
                     txtMarca.setText(mostrar.getProperty("Marca"));
                     txtModelo.setText(mostrar.getProperty("Modelo"));
-                    txtNombreDispositivo.setText(mostrar.getProperty("NombreDispositivo"));
+                    txtNumeroSerie.setText(mostrar.getProperty("NumeroSerie"));
                     txtDireccionIP.setText(mostrar.getProperty("DireccionIP"));
                     txtNombreArchivo.setText(mostrar.getProperty("NombreAchivo"));
                 } catch (Exception e) {
                 }
             }else{
                 JOptionPane.showMessageDialog(rootPane, "El Registro no Existe");
+            }
+        }
+    }
+    
+    private void Modificar(){
+        File url = new File(directorio+txtNombreDispositivo.getText()+".properties");
+        if (txtNombreDispositivo.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Nombre de Registro a Modificar");
+        }else{
+            if (url.exists()) {
+                try {
+                    FileWriter editar = new FileWriter(directorio+txtNombreDispositivo.getText()+".properties");
+                    String Nombre = "Nombre=";
+                    String Tipo = "Tipo=";
+                    String Marca = "Marca=";
+                    String Modelo = "Modelo";
+                    String Serie = "NumeroSerie=";
+                    String IP = "IP=";
+                    String Archivo= "NombreArchivo=";
+                    
+                    PrintWriter guardar = new PrintWriter(editar);
+                    guardar.println(Nombre+txtNombreDispositivo.getText());
+                    guardar.println(Tipo+cbxTipo.getSelectedItem());
+                    guardar.println(Marca+txtMarca.getText());
+                    guardar.println(Modelo+txtModelo.getText());
+                    guardar.println(Serie+txtNumeroSerie.getText());
+                    guardar.println(IP+txtDireccionIP.getText());
+                    guardar.println(Archivo+txtNombreArchivo.getText());
+                    editar.close();
+                    JOptionPane.showMessageDialog(rootPane, "Modificación de datos Correcta");
+                } catch (Exception e) {
+                    JOptionPane.showConfirmDialog(rootPane,"Error"+ e);
+                }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "El Registro No existe");
+            }
+        }
+    }
+    
+    private void Eliminar(){
+        File url = new File(directorio+txtNombreDispositivo.getText()+".properties");
+        String btns [] = {"Eliminar", "Cancelar"};
+        if (txtNombreDispositivo.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Ingrese el registro a eliminar");
+        }else{
+            if (url.exists()) {
+                try {
+                    FileInputStream cerrar = new FileInputStream(url);
+                    cerrar.close();
+                    System.gc();
+                    int confirmar = JOptionPane.showOptionDialog(rootPane, "¿Eliminar el registro?... "+txtNombreDispositivo.getText(), "Eliminar", 0, 0, null, btns, null);
+                    if (confirmar == JOptionPane.YES_OPTION) {
+                        url.delete();
+                        JOptionPane.showMessageDialog(rootPane, "¡Registro eliminado permanentemente!");
+                    }
+                    if (confirmar == JOptionPane.YES_OPTION) {
+                        
+                    }
+                } catch (Exception e) {
+                }
             }
         }
     }
@@ -91,15 +153,15 @@ public class frmDispositivo extends javax.swing.JFrame {
         jPanelDatosGenerales = new javax.swing.JPanel();
         jPanelDispositivo = new javax.swing.JPanel();
         lblID = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
+        txtNombreDispositivo = new javax.swing.JTextField();
         lblTipo = new javax.swing.JLabel();
-        txtTipo = new javax.swing.JTextField();
+        cbxTipo = new javax.swing.JComboBox<>();
         lblMarca = new javax.swing.JLabel();
         txtMarca = new javax.swing.JTextField();
         lblModelo = new javax.swing.JLabel();
         txtModelo = new javax.swing.JTextField();
         lblNombreDispositivo = new javax.swing.JLabel();
-        txtNombreDispositivo = new javax.swing.JTextField();
+        txtNumeroSerie = new javax.swing.JTextField();
         lblDireccionIP = new javax.swing.JLabel();
         txtDireccionIP = new javax.swing.JTextField();
         lblNombreArchivo = new javax.swing.JLabel();
@@ -124,15 +186,22 @@ public class frmDispositivo extends javax.swing.JFrame {
         jPanelDispositivo.setToolTipText("Dispositivo");
         jPanelDispositivo.setName(""); // NOI18N
 
-        lblID.setText("ID:");
+        lblID.setText("Nombre de Dispositivo:");
 
         lblTipo.setText("Tipo:");
+
+        cbxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Ordenador", "Medidor" }));
+        cbxTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxTipoActionPerformed(evt);
+            }
+        });
 
         lblMarca.setText("Marca:");
 
         lblModelo.setText("Modelo:");
 
-        lblNombreDispositivo.setText("Nombre de Dispositivo:");
+        lblNombreDispositivo.setText("Número de Serie:");
 
         lblDireccionIP.setText("Dirección IP:");
 
@@ -143,8 +212,6 @@ public class frmDispositivo extends javax.swing.JFrame {
         });
 
         lblNombreArchivo.setText("Nombre de Archivo:");
-
-        txtNombreArchivo.setEditable(false);
 
         btnAdicionarDispositivo.setText("Adicionar");
         btnAdicionarDispositivo.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +235,11 @@ public class frmDispositivo extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -204,13 +276,13 @@ public class frmDispositivo extends javax.swing.JFrame {
                             .addComponent(lblID))
                         .addGap(18, 18, 18)
                         .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtId)
+                            .addComponent(txtNombreDispositivo)
                             .addComponent(txtNombreArchivo)
                             .addComponent(txtDireccionIP)
-                            .addComponent(txtNombreDispositivo)
+                            .addComponent(txtNumeroSerie)
                             .addComponent(txtModelo)
-                            .addComponent(txtTipo, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtMarca, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(txtMarca, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbxTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanelDispositivoLayout.setVerticalGroup(
@@ -219,11 +291,13 @@ public class frmDispositivo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblID)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTipo)
-                    .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDispositivoLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblTipo))
+                    .addComponent(cbxTipo, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMarca)
@@ -235,7 +309,7 @@ public class frmDispositivo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombreDispositivo)
-                    .addComponent(txtNombreDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumeroSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDireccionIP)
@@ -258,13 +332,13 @@ public class frmDispositivo extends javax.swing.JFrame {
 
         tblDispositivo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Id", "Tipo", "Marca", "Modelo", "Dispositivo", "Dirección IP", "Archivo"
+
             }
         ));
         tblDispositivo.setColumnSelectionAllowed(true);
@@ -279,9 +353,10 @@ public class frmDispositivo extends javax.swing.JFrame {
         );
         jPanelTablaDispositivosRegistradosLayout.setVerticalGroup(
             jPanelTablaDispositivosRegistradosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTablaDispositivosRegistradosLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTablaDispositivosRegistradosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPaneTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPaneTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanelDatosGeneralesLayout = new javax.swing.GroupLayout(jPanelDatosGenerales);
@@ -299,7 +374,7 @@ public class frmDispositivo extends javax.swing.JFrame {
             jPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDatosGeneralesLayout.createSequentialGroup()
                 .addComponent(jPanelDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jPanelTablaDispositivosRegistrados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69))
         );
@@ -317,10 +392,9 @@ public class frmDispositivo extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanelDatosGenerales, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelDatosGenerales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelDatosGenerales.getAccessibleContext().setAccessibleName("");
@@ -340,7 +414,7 @@ public class frmDispositivo extends javax.swing.JFrame {
     
     
     private void btnModificarDispositivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarDispositivoActionPerformed
-        //managerrpa.oPropiedades.setProperty("REPG00402", "REPG00363");
+        Modificar();
     }//GEN-LAST:event_btnModificarDispositivoActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
@@ -352,6 +426,22 @@ public class frmDispositivo extends javax.swing.JFrame {
         ADM.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void cbxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoActionPerformed
+        if(cbxTipo.getSelectedItem() == "Medidor"){
+            txtNombreArchivo.setVisible(true);
+            lblNombreArchivo.setVisible(true);
+        }else{
+            if(cbxTipo.getSelectedItem() == "Ordenador"){
+                txtNombreArchivo.setVisible(false);
+                lblNombreArchivo.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_cbxTipoActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Eliminar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -409,6 +499,7 @@ public class frmDispositivo extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificarDispositivo;
     private javax.swing.JButton btnMostrar;
+    private javax.swing.JComboBox<String> cbxTipo;
     private javax.swing.JPanel jPanelDatosGenerales;
     private javax.swing.JPanel jPanelDispositivo;
     private javax.swing.JPanel jPanelTablaDispositivosRegistrados;
@@ -422,11 +513,10 @@ public class frmDispositivo extends javax.swing.JFrame {
     private javax.swing.JLabel lblTipo;
     private javax.swing.JTable tblDispositivo;
     private javax.swing.JTextField txtDireccionIP;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtNombreArchivo;
     private javax.swing.JTextField txtNombreDispositivo;
-    private javax.swing.JTextField txtTipo;
+    private javax.swing.JTextField txtNumeroSerie;
     // End of variables declaration//GEN-END:variables
 }
