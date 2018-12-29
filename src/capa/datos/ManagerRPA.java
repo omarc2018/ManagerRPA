@@ -2,7 +2,6 @@ package capa.datos;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,9 +9,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.lang.String;
-import static java.lang.System.getProperty;
-import static javax.management.Query.value;
+
 
 
 

@@ -10,24 +10,24 @@ package capa.negocio;
  * @author Omar Castillo
  */
 public class Dispositivo {
-    String Id, Tipo, Marca, Modelo, Nombre, DireccionIP, Archivo;
+    String NombreDispositivo, Tipo, Marca, Modelo, Nombre, IpDispositivo, NombreArchivo;
 
-    public Dispositivo(String Id, String Tipo, String Marca, String Modelo, String Nombre, String DireccionIP, String Archivo) {
-        this.Id = Id;
+    public Dispositivo(String NombreDispositivo, String Tipo, String Marca, String Modelo, String Nombre, String IpDispositivo, String Archivo, String NombreArchivo) {
+        this.NombreDispositivo = NombreDispositivo;
         this.Tipo = Tipo;
         this.Marca = Marca;
         this.Modelo = Modelo;
         this.Nombre = Nombre;
-        this.DireccionIP = DireccionIP;
-        this.Archivo = Archivo;
+        this.IpDispositivo = IpDispositivo;
+        this.NombreArchivo = NombreArchivo;
     }
 
-    public String getId() {
-        return Id;
+    public String getNombreDispositivo() {
+        return NombreDispositivo;
     }
 
-    public void setId(String Id) {
-        this.Id = Id;
+    public void setNombreDispositivo(String NombreDispositivo) {
+        this.NombreDispositivo = NombreDispositivo;
     }
     
     public String getTipo() {
@@ -62,20 +62,20 @@ public class Dispositivo {
         this.Nombre = Nombre;
     }
 
-    public String getDireccionIP() {
-        return DireccionIP;
+    public String getIpDispositivo() {
+        return IpDispositivo;
     }
 
-    public void setDireccionIP(String DireccionIP) {
-        this.DireccionIP = DireccionIP;
+    public void setDireccionIP(String IpDispositivo) {
+        this.IpDispositivo = IpDispositivo;
     }
 
-    public String getArchivo() {
-        return Archivo;
+    public String getNombreArchivo() {
+        return NombreArchivo;
     }
 
-    public void setArchivo(String Archivo) {
-        this.Archivo = Archivo;
+    public void setNombreArchivo(String NombreArchivo) {
+        this.NombreArchivo = NombreArchivo;
     }
 
        
