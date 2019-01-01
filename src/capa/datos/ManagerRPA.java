@@ -15,15 +15,14 @@ import java.util.logging.Logger;
 
 public class ManagerRPA {
 
-    String barra = File.separator;
-    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra;
-    
+     
     
     
     
     public static void main(String[] args){
         Properties oPropiedades = new Properties();
-        
+        ArchivoPropiedades creaArchivo = new ArchivoPropiedades();
+        creaArchivo.crearArchivo();
         InputStream isArchivo;
         
         try {

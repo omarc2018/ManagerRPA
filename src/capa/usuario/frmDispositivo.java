@@ -16,14 +16,23 @@ public class frmDispositivo extends javax.swing.JFrame {
     String barra = File.separator;
     String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra+"propiedades"+barra;
     
-        
+    File contenedor = new File(directorio);
+    File [] registros = contenedor.listFiles();
+    
+    private void verCombo(){
+        for (int i = 0; i < registros.length; i++) {
+            cbxTipo.addItem(registros[i].getName().replace(".properties", ""));
+        }
+    }
+    
     public frmDispositivo() {
         initComponents();
         this.setLocationRelativeTo(null);
+        verCombo();
     }
     
     private void Crear(){
-            String archivo = txtNombreDispositivo.getText()+".properties";
+        String archivo = txtNombreDispositivo.getText()+".properties";
             File crea_ubicacion = new File(directorio);
             File crea_archivo = new File(directorio+archivo);
             
@@ -177,7 +186,6 @@ public class frmDispositivo extends javax.swing.JFrame {
 
         lblTipo.setText("Tipo:");
 
-        cbxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Ordenador", "Medidor" }));
         cbxTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxTipoActionPerformed(evt);
