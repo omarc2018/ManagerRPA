@@ -26,7 +26,7 @@ public class ManagerRPA {
         InputStream isArchivo;
         
         try {
-            isArchivo = new FileInputStream("D:\\Documents\\NetBeansProjects\\ManagerRPA\\src\\CapaDatos\\Configuracion.properties");
+            isArchivo = new FileInputStream("D:\\Documents\\NetBeansProjects\\ManagerRPA\\src\\CapaDatos\\RPA.properties");
             oPropiedades.load(isArchivo);
         } catch (IOException e) {
             System.out.print(e.toString());
@@ -45,7 +45,7 @@ public class ManagerRPA {
         oPropiedades.setProperty("IP", "10.122.11.402");
         
         try{
-            oPropiedades.store(new FileWriter("D:\\Documents\\NetBeansProjects\\ManagerRPA\\src\\Capa\\Datos\\Configuracion.properties"), "Se actualizó la configuración");
+            oPropiedades.store(new FileWriter("D:\\Documents\\NetBeansProjects\\ManagerRPA\\src\\Capa\\Datos\\RPA.properties"), "Se actualizó la configuración");
         }
         catch (IOException ex){
             Logger.getLogger(ManagerRPA.class.getName()).log(Level.SEVERE, null, ex);
