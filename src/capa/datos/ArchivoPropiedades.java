@@ -15,7 +15,7 @@ public class ArchivoPropiedades {
         Properties propiedades = new Properties();
         OutputStream salida = null;
         try {
-            salida = new FileOutputStream(directorio+"variablesION.properties");
+            salida = new FileOutputStream(directorio+"TipoDispositivo.properties");
             propiedades.store(salida, null);
         } catch (IOException io) {
             io.printStackTrace();

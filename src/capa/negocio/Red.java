@@ -10,13 +10,13 @@ package capa.negocio;
  * @author Omar Castillo
  */
 public class Red {
-    String Id, Nombre, Segmento,DirDestino ;
+    String Id, Nombre, IpPuertaEnlace,IpDestino ;
 
-    public Red(String Id, String Nombre, String Segmento, String DirDestino) {
+    public Red(String Id, String Nombre, String IpPuertaEnlace, String IpDestino) {
         this.Id = Id;
         this.Nombre = Nombre;
-        this.Segmento = Segmento;
-        this.DirDestino = DirDestino;
+        this.IpPuertaEnlace = IpPuertaEnlace;
+        this.IpDestino = IpDestino;
     }
 
     public String getId() {
@@ -35,20 +35,20 @@ public class Red {
         this.Nombre = Nombre;
     }
 
-    public String getSegmento() {
-        return Segmento;
+    public String getIpPuertaEnlace() {
+        return IpPuertaEnlace;
     }
 
-    public void setSegmento(String Segmento) {
-        this.Segmento = Segmento;
+    public void setIpPuertaEnlace(String IpPuertaEnlace) {
+        this.IpPuertaEnlace = IpPuertaEnlace;
     }
 
-    public String getDirDestino() {
-        return DirDestino;
+    public String getIpDestino() {
+        return IpDestino;
     }
 
-    public void setDirDestino(String DirDestino) {
-        this.DirDestino = DirDestino;
+    public void setIpDestino(String IpDestino) {
+        this.IpDestino = IpDestino;
     }
     
 }

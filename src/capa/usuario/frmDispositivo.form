@@ -105,14 +105,15 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="btnAdicionarDispositivo" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnMostrar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnModificarDispositivo" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="18" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -129,7 +130,7 @@
                                   <Component id="cbxMarca" alignment="1" max="32767" attributes="0"/>
                                   <Component id="txtNombreDispositivo" max="32767" attributes="0"/>
                                   <Component id="txtNombreArchivo" max="32767" attributes="0"/>
-                                  <Component id="txtDireccionIP" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtIpDispositivo" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtNumeroSerie" alignment="0" max="32767" attributes="0"/>
                                   <Component id="cbxTipo" alignment="0" max="32767" attributes="0"/>
                                   <Component id="cbxModelo" max="32767" attributes="0"/>
@@ -170,7 +171,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtDireccionIP" alignment="3" pref="25" max="32767" attributes="0"/>
+                          <Component id="txtIpDispositivo" alignment="3" pref="25" max="32767" attributes="0"/>
                           <Component id="lblDireccionIP" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -239,9 +240,9 @@
                 <Property name="text" type="java.lang.String" value="Direcci&#xf3;n IP:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtDireccionIP">
+            <Component class="javax.swing.JTextField" name="txtIpDispositivo">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDireccionIPActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtIpDispositivoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblNombreArchivo">

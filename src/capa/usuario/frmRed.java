@@ -5,6 +5,7 @@
  */
 package capa.usuario;
 
+import com.sun.org.apache.xerces.internal.impl.dtd.models.ContentModelValidator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -12,6 +13,7 @@ import java.io.PrintWriter;
 import java.util.Formatter;
 import java.util.Properties;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,10 +22,39 @@ import javax.swing.JOptionPane;
 public class frmRed extends javax.swing.JFrame {
 
     String barra = File.separator;
-    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra+"propiedades"+barra;
+    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra+"propiedades"+barra+"redes"+barra;
+    
+    File contenedor = new File(directorio);
+    File [] registros = contenedor.listFiles();
+    String [] titulo = {"Id", "Nombre", "IP Local", "IP Destino"};
+    DefaultTableModel dtm = new DefaultTableModel(null, titulo);
+    
+    private  void  RegTable(){
+        for (int i = 0; i < registros.length; i++) {
+            File url = new File(directorio+registros[i].getName());
+            try {
+                FileInputStream fis = new FileInputStream(url);
+                Properties mostrar = new Properties();
+                mostrar.load(fis);
+                String filas [] = {registros[i].getName().replace(".properties", ""),
+                mostrar.getProperty("Nombre"), mostrar.getProperty("IpPuertaEnlace"), mostrar.getProperty("IpDestino")};
+                dtm.addRow(filas);
+            } catch (Exception e) {
+            }
+        }
+        tblRed.setModel(dtm);
+    }
+    
     
     public frmRed() {
         initComponents();
+        RegTable();
+    }
+    
+    private  void ActualizarTabla(){
+        registros = contenedor.listFiles();
+        dtm.setRowCount(0);
+        RegTable();
     }
 
     private void Crear(){
@@ -41,9 +72,10 @@ public class frmRed extends javax.swing.JFrame {
                         crea_ubicacion.mkdirs();
                         Formatter crea = new Formatter(directorio+archivo);
                             crea.format("%s\r\n%s\r\n%s\r\n%s","Id="+txtId.getText(),"Nombre="+txtNombreRed.getText(),
-                                    "PuertaEnlace="+txtPuertaEnlace.getText(),"DireccionDestino="+txtDireccionDestino.getText());
+                                    "IpPuertaEnlace="+txtIpPuertaEnlace.getText(),"IpDestino="+txtIpDestino.getText());
                         crea.close();
                         JOptionPane.showMessageDialog(rootPane, "Archivo creado correctamente");
+                        ActualizarTabla();
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(rootPane,"No se pudo crear");
@@ -63,8 +95,8 @@ public class frmRed extends javax.swing.JFrame {
                     Properties mostrar = new Properties();
                     mostrar.load(fis);
                     txtNombreRed.setText(mostrar.getProperty("Nombre"));
-                    txtPuertaEnlace.setText(mostrar.getProperty("PuertaEnlace"));
-                    txtDireccionDestino.setText(mostrar.getProperty("DireccionDestino"));
+                    txtIpPuertaEnlace.setText(mostrar.getProperty("IpPuertaEnlace"));
+                    txtIpDestino.setText(mostrar.getProperty("IpDestino"));
                 } catch (Exception e) {
                 }
             }else{
@@ -83,16 +115,17 @@ public class frmRed extends javax.swing.JFrame {
                     FileWriter editar = new FileWriter(directorio+txtId.getText()+".properties");
                     String Id = "Id=";
                     String Nombre = "Nombre=";
-                    String PuertaEnlace = "PuertaEnlace=";
-                    String DireccionDestino= "DireccionDestino=";
+                    String PuertaEnlace = "IpPuertaEnlace=";
+                    String DireccionDestino= "IpDestino=";
                     
                     PrintWriter guardar = new PrintWriter(editar);
                     guardar.println(Id+txtId.getText());
                     guardar.println(Nombre+txtNombreRed.getText());
-                    guardar.println(PuertaEnlace+txtPuertaEnlace.getText());
-                    guardar.println(DireccionDestino+txtDireccionDestino.getText());
+                    guardar.println(PuertaEnlace+txtIpPuertaEnlace.getText());
+                    guardar.println(DireccionDestino+txtIpDestino.getText());
                     editar.close();
                     JOptionPane.showMessageDialog(rootPane, "Modificación de datos Correcta");
+                    ActualizarTabla();
                 } catch (Exception e) {
                     JOptionPane.showConfirmDialog(rootPane,"Error"+ e);
                 }
@@ -117,6 +150,7 @@ public class frmRed extends javax.swing.JFrame {
                     if (confirmar == JOptionPane.YES_OPTION) {
                         url.delete();
                         JOptionPane.showMessageDialog(rootPane, "¡Registro eliminado permanentemente!");
+                        ActualizarTabla();
                     }
                     if (confirmar == JOptionPane.YES_OPTION) {
                         
@@ -138,9 +172,9 @@ public class frmRed extends javax.swing.JFrame {
         lblNombreRed = new javax.swing.JLabel();
         txtNombreRed = new javax.swing.JTextField();
         lblPuertaEnlace = new javax.swing.JLabel();
-        txtPuertaEnlace = new javax.swing.JTextField();
+        txtIpPuertaEnlace = new javax.swing.JTextField();
         lblDireccionDestino = new javax.swing.JLabel();
-        txtDireccionDestino = new javax.swing.JTextField();
+        txtIpDestino = new javax.swing.JTextField();
         btnAdicionarSubestacion1 = new javax.swing.JButton();
         btnMostrar = new javax.swing.JButton();
         btnModificarSubestacion1 = new javax.swing.JButton();
@@ -148,7 +182,7 @@ public class frmRed extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         jPanelTablaRedesRegistradas = new javax.swing.JPanel();
         jScrollPaneTabla2 = new javax.swing.JScrollPane();
-        tblDispositivo2 = new javax.swing.JTable();
+        tblRed = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -205,17 +239,7 @@ public class frmRed extends javax.swing.JFrame {
             jPanelRedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelRedLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelRedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanelRedLayout.createSequentialGroup()
-                        .addComponent(btnAdicionarSubestacion1)
-                        .addGap(6, 6, 6)
-                        .addComponent(btnMostrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModificarSubestacion1)
-                        .addGap(9, 9, 9)
-                        .addComponent(btnEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar))
+                .addGroup(jPanelRedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelRedLayout.createSequentialGroup()
                         .addGroup(jPanelRedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDireccionDestino)
@@ -223,11 +247,21 @@ public class frmRed extends javax.swing.JFrame {
                             .addComponent(lblNombreRed)
                             .addComponent(lblID))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanelRedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombreRed)
-                            .addComponent(txtPuertaEnlace)
-                            .addComponent(txtDireccionDestino))))
+                        .addGroup(jPanelRedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtNombreRed, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                            .addComponent(txtIpPuertaEnlace, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtIpDestino)
+                            .addComponent(txtId)))
+                    .addGroup(jPanelRedLayout.createSequentialGroup()
+                        .addComponent(btnAdicionarSubestacion1)
+                        .addGap(6, 6, 6)
+                        .addComponent(btnMostrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnModificarSubestacion1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelRedLayout.setVerticalGroup(
@@ -244,11 +278,11 @@ public class frmRed extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanelRedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPuertaEnlace)
-                    .addComponent(txtPuertaEnlace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIpPuertaEnlace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelRedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDireccionDestino)
-                    .addComponent(txtDireccionDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIpDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelRedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarSubestacion1)
@@ -261,7 +295,7 @@ public class frmRed extends javax.swing.JFrame {
 
         jPanelTablaRedesRegistradas.setBorder(javax.swing.BorderFactory.createTitledBorder("Redes Registradas"));
 
-        tblDispositivo2.setModel(new javax.swing.table.DefaultTableModel(
+        tblRed.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -272,15 +306,15 @@ public class frmRed extends javax.swing.JFrame {
 
             }
         ));
-        tblDispositivo2.setColumnSelectionAllowed(true);
-        jScrollPaneTabla2.setViewportView(tblDispositivo2);
-        tblDispositivo2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tblRed.setColumnSelectionAllowed(true);
+        jScrollPaneTabla2.setViewportView(tblRed);
+        tblRed.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout jPanelTablaRedesRegistradasLayout = new javax.swing.GroupLayout(jPanelTablaRedesRegistradas);
         jPanelTablaRedesRegistradas.setLayout(jPanelTablaRedesRegistradasLayout);
         jPanelTablaRedesRegistradasLayout.setHorizontalGroup(
             jPanelTablaRedesRegistradasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneTabla2, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+            .addComponent(jScrollPaneTabla2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanelTablaRedesRegistradasLayout.setVerticalGroup(
             jPanelTablaRedesRegistradasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,14 +327,14 @@ public class frmRed extends javax.swing.JFrame {
         jPanelDatosGenerales.setLayout(jPanelDatosGeneralesLayout);
         jPanelDatosGeneralesLayout.setHorizontalGroup(
             jPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelDatosGeneralesLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jPanelTablaRedesRegistradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosGeneralesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanelRed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(jPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanelTablaRedesRegistradas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelDatosGeneralesLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanelRed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16))
         );
         jPanelDatosGeneralesLayout.setVerticalGroup(
             jPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,8 +352,8 @@ public class frmRed extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelDatosGenerales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanelDatosGenerales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,10 +437,10 @@ public class frmRed extends javax.swing.JFrame {
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblNombreRed;
     private javax.swing.JLabel lblPuertaEnlace;
-    private javax.swing.JTable tblDispositivo2;
-    private javax.swing.JTextField txtDireccionDestino;
+    private javax.swing.JTable tblRed;
     private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtIpDestino;
+    private javax.swing.JTextField txtIpPuertaEnlace;
     private javax.swing.JTextField txtNombreRed;
-    private javax.swing.JTextField txtPuertaEnlace;
     // End of variables declaration//GEN-END:variables
 }

@@ -21,13 +21,13 @@ import javax.swing.table.DefaultTableModel;
 public class frmSubestacion extends javax.swing.JFrame {
 
     String barra = File.separator;
-    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra+"propiedades"+barra;
+    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra+"propiedades"+barra+"subestaciones"+barra;
     
     File contenedor = new File(directorio);
     File [] registros = contenedor.listFiles();
     
     String [] titulo = {"Nombre", "Nivel Tensión"};
-    DefaultTableModel dtm = new DefaultTableModel();
+    DefaultTableModel dtm = new DefaultTableModel(null, titulo);
     
     private  void RegistrosTabla(){
         for (int i = 0; i < registros.length; i++) {
@@ -37,8 +37,7 @@ public class frmSubestacion extends javax.swing.JFrame {
                 Properties mostrar = new Properties();
                 mostrar.load(fis);
                 String filas [] = {registros[i].getName().replace(".properties", ""),
-                mostrar.getProperty("Nombre"),mostrar.getProperty("Nivel Tensión")
-                };
+                mostrar.getProperty("NivelTension")};
                 dtm.addRow(filas);
             } catch (Exception e) {
             }
@@ -48,6 +47,12 @@ public class frmSubestacion extends javax.swing.JFrame {
     
     public frmSubestacion() {
         initComponents();
+        RegistrosTabla();
+    }
+    
+    private  void ActualizarTabla(){
+        registros = contenedor.listFiles();
+        dtm.setRowCount(0);
         RegistrosTabla();
     }
 
@@ -69,6 +74,7 @@ public class frmSubestacion extends javax.swing.JFrame {
                                     "NivelTension="+txtNivelTension.getText());
                         crea.close();
                         JOptionPane.showMessageDialog(rootPane, "Archivo creado correctamente");
+                        ActualizarTabla();
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(rootPane,"No se pudo crear");
@@ -112,6 +118,7 @@ public class frmSubestacion extends javax.swing.JFrame {
                     guardar.println(NivelTension+txtNivelTension.getText());
                     editar.close();
                     JOptionPane.showMessageDialog(rootPane, "Modificación de datos Correcta");
+                    ActualizarTabla();
                 } catch (Exception e) {
                     JOptionPane.showConfirmDialog(rootPane,"Error"+ e);
                 }
@@ -136,6 +143,7 @@ public class frmSubestacion extends javax.swing.JFrame {
                     if (confirmar == JOptionPane.YES_OPTION) {
                         url.delete();
                         JOptionPane.showMessageDialog(rootPane, "¡Registro eliminado permanentemente!");
+                        ActualizarTabla();
                     }
                     if (confirmar == JOptionPane.YES_OPTION) {
                         
@@ -226,24 +234,21 @@ public class frmSubestacion extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtNombreSubestacion))
                     .addGroup(jPanelSubestacionLayout.createSequentialGroup()
-                        .addGroup(jPanelSubestacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelSubestacionLayout.createSequentialGroup()
-                                .addComponent(btnAdicionarSubestacion)
-                                .addGap(3, 3, 3)
-                                .addComponent(btnMostrar)
-                                .addGap(4, 4, 4)
-                                .addComponent(btnModificarSubestacion)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnEliminar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancelar))
-                            .addGroup(jPanelSubestacionLayout.createSequentialGroup()
-                                .addComponent(lblNivelTension)
-                                .addGap(54, 54, 54)
-                                .addComponent(txtNivelTension, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)
-                                .addComponent(lblNivelTension1)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(lblNivelTension)
+                        .addGap(54, 54, 54)
+                        .addComponent(txtNivelTension, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblNivelTension1))
+                    .addGroup(jPanelSubestacionLayout.createSequentialGroup()
+                        .addComponent(btnAdicionarSubestacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnMostrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnModificarSubestacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar)))
                 .addContainerGap())
         );
         jPanelSubestacionLayout.setVerticalGroup(
@@ -305,12 +310,10 @@ public class frmSubestacion extends javax.swing.JFrame {
             jPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDatosGeneralesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanelTablaSubestacionesRegistradas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelDatosGeneralesLayout.createSequentialGroup()
-                        .addComponent(jPanelSubestacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 6, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jPanelSubestacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelDatosGeneralesLayout.setVerticalGroup(
             jPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,8 +331,8 @@ public class frmSubestacion extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelDatosGenerales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanelDatosGenerales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

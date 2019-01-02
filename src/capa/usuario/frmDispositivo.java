@@ -2,33 +2,76 @@
 package capa.usuario;
 
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Formatter;
 import java.util.Properties;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 public class frmDispositivo extends javax.swing.JFrame {
 
     String barra = File.separator;
-    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra+"propiedades"+barra;
-    
+    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra+"propiedades"+barra+"dispositivos"+barra;
+    String directorio1 = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra;
     File contenedor = new File(directorio);
+    File contenedor1 = new File(directorio1);
     File [] registros = contenedor.listFiles();
+    File [] registros1 = contenedor1.listFiles();
+    String [] titulo = {"Nombre", "Tipo", "Marca", "Modelo", "Numero Serie", "IP", "Nombre Archivo"};
+    DefaultTableModel dtm = new DefaultTableModel(null, titulo);
+    
+    private  void  RegTable(){
+        for (int i = 0; i < registros.length; i++) {
+            File url = new File(directorio+registros[i].getName());
+            try {
+                FileInputStream fis = new FileInputStream(url);
+                Properties mostrar = new Properties();
+                mostrar.load(fis);
+                String filas [] = {registros[i].getName().replace(".properties", ""),
+                mostrar.getProperty("Tipo"), mostrar.getProperty("Marca"), mostrar.getProperty("Modelo"),
+                mostrar.getProperty("NumeroSerie"), mostrar.getProperty("IpDispositivo"), mostrar.getProperty("NombreArchivo")};
+                dtm.addRow(filas);
+            } catch (Exception e) {
+            }
+        }
+        tblDispositivo.setModel(dtm);
+    }
     
     private void verCombo(){
-        for (int i = 0; i < registros.length; i++) {
-            cbxTipo.addItem(registros[i].getName().replace(".properties", ""));
-        }
+        
+            File url = new File(directorio1+"TipoDispositivo.properties");
+            try {
+                FileInputStream fis = new FileInputStream(url);
+                DataInputStream dis = new DataInputStream(fis);
+                BufferedReader br = new BufferedReader(new InputStreamReader(dis));
+                String strLine;
+                while((strLine = br.readLine())!= null){
+                    cbxTipo.addItem(strLine);
+                }
+            } catch (Exception e) {
+            }
+            //cbxTipo.addItem(filas);
+        
     }
     
     public frmDispositivo() {
         initComponents();
         this.setLocationRelativeTo(null);
         verCombo();
+        RegTable();
+    }
+    
+    private  void ActualizarTabla(){
+        registros = contenedor.listFiles();
+        dtm.setRowCount(0);
+        RegTable();
     }
     
     private void Crear(){
@@ -47,9 +90,10 @@ public class frmDispositivo extends javax.swing.JFrame {
                         Formatter crea = new Formatter(directorio+archivo);
                             crea.format("%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s","NombreDispositivo="+txtNombreDispositivo.getText(),"Tipo="+cbxTipo.getSelectedItem(),
                                     "Marca="+cbxMarca.getSelectedItem(),"Modelo="+cbxModelo.getSelectedItem(),"NumeroSerie="+txtNumeroSerie.getText(),
-                                    "IP="+txtDireccionIP.getText(),"NombreArchivo="+txtNombreArchivo.getText());
+                                    "IpDispositivo="+txtIpDispositivo.getText(),"NombreArchivo="+txtNombreArchivo.getText());
                         crea.close();
                         JOptionPane.showMessageDialog(rootPane, "Archivo creado correctamente");
+                        ActualizarTabla();
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(rootPane,"No se pudo crear");
@@ -72,7 +116,7 @@ public class frmDispositivo extends javax.swing.JFrame {
                     cbxMarca.setSelectedItem(mostrar.getProperty("Marca"));
                     cbxModelo.setSelectedItem(mostrar.getProperty("Modelo"));
                     txtNumeroSerie.setText(mostrar.getProperty("NumeroSerie"));
-                    txtDireccionIP.setText(mostrar.getProperty("DireccionIP"));
+                    txtIpDispositivo.setText(mostrar.getProperty("IpDispositivo"));
                     txtNombreArchivo.setText(mostrar.getProperty("NombreAchivo"));
                 } catch (Exception e) {
                 }
@@ -95,7 +139,7 @@ public class frmDispositivo extends javax.swing.JFrame {
                     String Marca = "Marca=";
                     String Modelo = "Modelo";
                     String Serie = "NumeroSerie=";
-                    String IPDispositivo = "IPDispositivo=";
+                    String IpDispositivo = "IpDispositivo=";
                     String Archivo= "NombreArchivo=";
                     
                     PrintWriter guardar = new PrintWriter(editar);
@@ -104,10 +148,11 @@ public class frmDispositivo extends javax.swing.JFrame {
                     guardar.println(Marca+cbxMarca.getSelectedItem());
                     guardar.println(Modelo+cbxModelo.getSelectedItem());
                     guardar.println(Serie+txtNumeroSerie.getText());
-                    guardar.println(IPDispositivo+txtDireccionIP.getText());
+                    guardar.println(IpDispositivo+txtIpDispositivo.getText());
                     guardar.println(Archivo+txtNombreArchivo.getText());
                     editar.close();
                     JOptionPane.showMessageDialog(rootPane, "Modificación de datos Correcta");
+                    ActualizarTabla();
                 } catch (Exception e) {
                     JOptionPane.showConfirmDialog(rootPane,"Error"+ e);
                 }
@@ -132,6 +177,7 @@ public class frmDispositivo extends javax.swing.JFrame {
                     if (confirmar == JOptionPane.YES_OPTION) {
                         url.delete();
                         JOptionPane.showMessageDialog(rootPane, "¡Registro eliminado permanentemente!");
+                        ActualizarTabla();
                     }
                     if (confirmar == JOptionPane.YES_OPTION) {
                         
@@ -157,7 +203,7 @@ public class frmDispositivo extends javax.swing.JFrame {
         lblNombreDispositivo = new javax.swing.JLabel();
         txtNumeroSerie = new javax.swing.JTextField();
         lblDireccionIP = new javax.swing.JLabel();
-        txtDireccionIP = new javax.swing.JTextField();
+        txtIpDispositivo = new javax.swing.JTextField();
         lblNombreArchivo = new javax.swing.JLabel();
         txtNombreArchivo = new javax.swing.JTextField();
         btnAdicionarDispositivo = new javax.swing.JButton();
@@ -200,9 +246,9 @@ public class frmDispositivo extends javax.swing.JFrame {
 
         lblDireccionIP.setText("Dirección IP:");
 
-        txtDireccionIP.addActionListener(new java.awt.event.ActionListener() {
+        txtIpDispositivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDireccionIPActionPerformed(evt);
+                txtIpDispositivoActionPerformed(evt);
             }
         });
 
@@ -266,14 +312,15 @@ public class frmDispositivo extends javax.swing.JFrame {
                 .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDispositivoLayout.createSequentialGroup()
                         .addComponent(btnAdicionarDispositivo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnMostrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnModificarDispositivo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelar)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanelDispositivoLayout.createSequentialGroup()
                         .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTipo)
@@ -288,7 +335,7 @@ public class frmDispositivo extends javax.swing.JFrame {
                             .addComponent(cbxMarca, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNombreDispositivo)
                             .addComponent(txtNombreArchivo)
-                            .addComponent(txtDireccionIP)
+                            .addComponent(txtIpDispositivo)
                             .addComponent(txtNumeroSerie)
                             .addComponent(cbxTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbxModelo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -319,7 +366,7 @@ public class frmDispositivo extends javax.swing.JFrame {
                     .addComponent(lblNombreDispositivo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDireccionIP, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(txtIpDispositivo, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                     .addComponent(lblDireccionIP))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -411,9 +458,9 @@ public class frmDispositivo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDireccionIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionIPActionPerformed
+    private void txtIpDispositivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIpDispositivoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDireccionIPActionPerformed
+    }//GEN-LAST:event_txtIpDispositivoActionPerformed
 
     private void btnAdicionarDispositivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarDispositivoActionPerformed
         Crear();
@@ -529,7 +576,7 @@ public class frmDispositivo extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombreDispositivo;
     private javax.swing.JLabel lblTipo;
     private javax.swing.JTable tblDispositivo;
-    private javax.swing.JTextField txtDireccionIP;
+    private javax.swing.JTextField txtIpDispositivo;
     private javax.swing.JTextField txtNombreArchivo;
     private javax.swing.JTextField txtNombreDispositivo;
     private javax.swing.JTextField txtNumeroSerie;
