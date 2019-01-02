@@ -75,7 +75,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jPanelDispositivo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="8" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="jPanelTablaDispositivosRegistrados" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
               </Group>
@@ -146,12 +146,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtNombreDispositivo" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="txtNombreDispositivo" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           <Component id="lblID" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cbxTipo" alignment="3" pref="33" max="32767" attributes="0"/>
+                          <Component id="cbxTipo" alignment="3" pref="31" max="32767" attributes="0"/>
                           <Component id="lblTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -159,24 +159,24 @@
                           <Component id="cbxMarca" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           <Component id="lblMarca" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="cbxModelo" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           <Component id="lblModelo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbxModelo" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtNumeroSerie" alignment="3" pref="25" max="32767" attributes="0"/>
+                          <Component id="txtNumeroSerie" alignment="3" pref="31" max="32767" attributes="0"/>
                           <Component id="lblNombreDispositivo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtIpDispositivo" alignment="3" pref="25" max="32767" attributes="0"/>
+                          <Component id="txtIpDispositivo" alignment="3" pref="31" max="32767" attributes="0"/>
                           <Component id="lblDireccionIP" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtNombreArchivo" alignment="3" pref="25" max="32767" attributes="0"/>
+                          <Component id="txtNombreArchivo" alignment="3" pref="31" max="32767" attributes="0"/>
                           <Component id="lblNombreArchivo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -199,6 +199,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtNombreDispositivo">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ejemplo: REPG00000; CL-0000"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTipo">
               <Properties>

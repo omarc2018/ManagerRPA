@@ -44,7 +44,7 @@ public class frmDispositivo extends javax.swing.JFrame {
         tblDispositivo.setModel(dtm);
     }
     
-    private void verCombo(){
+    private void verComboTipo(){
         
             File url = new File(directorio1+"TipoDispositivo.properties");
             try {
@@ -57,14 +57,46 @@ public class frmDispositivo extends javax.swing.JFrame {
                 }
             } catch (Exception e) {
             }
-            //cbxTipo.addItem(filas);
-        
     }
+    
+    private void verComboMarca(){
+        if (cbxTipo.getSelectedItem().equals("Ordenador")) {
+            File url = new File(directorio1+"MarcaOrdenadores.properties");
+            try {
+                FileInputStream fis = new FileInputStream(url);
+                DataInputStream dis = new DataInputStream(fis);
+                BufferedReader br = new BufferedReader(new InputStreamReader(dis));
+                String strLine;
+                while((strLine = br.readLine())!= null){
+                    cbxMarca.addItem(strLine);
+                    fis.close();
+                }
+            } catch (Exception e) {
+            }
+        }else if (cbxTipo.getSelectedItem().equals("Medidor")) {
+            File url = new File(directorio1+"MarcaMedidores.properties");
+            try {
+                FileInputStream fis = new FileInputStream(url);
+                DataInputStream dis = new DataInputStream(fis);
+                BufferedReader br = new BufferedReader(new InputStreamReader(dis));
+                String strLine;
+                while((strLine = br.readLine())!= null){
+                    cbxMarca.addItem(strLine);
+                    fis.close();
+                }
+            } catch (Exception e) {
+            }
+        }
+            
+    }
+    
+    
     
     public frmDispositivo() {
         initComponents();
         this.setLocationRelativeTo(null);
-        verCombo();
+        verComboTipo();
+        verComboMarca();
         RegTable();
     }
     
@@ -230,6 +262,8 @@ public class frmDispositivo extends javax.swing.JFrame {
 
         lblID.setText("Nombre de Dispositivo:");
 
+        txtNombreDispositivo.setText("Ejemplo: REPG00000; CL-0000");
+
         lblTipo.setText("Tipo:");
 
         cbxTipo.addActionListener(new java.awt.event.ActionListener() {
@@ -346,31 +380,31 @@ public class frmDispositivo extends javax.swing.JFrame {
             .addGroup(jPanelDispositivoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombreDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblID))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxTipo, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(cbxTipo, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                     .addComponent(lblTipo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMarca))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblModelo)
-                    .addComponent(cbxModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNumeroSerie, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(cbxModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblModelo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumeroSerie, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                     .addComponent(lblNombreDispositivo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIpDispositivo, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(txtIpDispositivo, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                     .addComponent(lblDireccionIP))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombreArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(txtNombreArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                     .addComponent(lblNombreArchivo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelDispositivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -428,7 +462,7 @@ public class frmDispositivo extends javax.swing.JFrame {
             jPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDatosGeneralesLayout.createSequentialGroup()
                 .addComponent(jPanelDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanelTablaDispositivosRegistrados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69))
         );
@@ -482,11 +516,11 @@ public class frmDispositivo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void cbxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoActionPerformed
-        if(cbxTipo.getSelectedItem() == "Medidor"){
+        if(cbxTipo.getSelectedItem().equals("Medidor")){
             txtNombreArchivo.setVisible(true);
             lblNombreArchivo.setVisible(true);
         }else{
-            if(cbxTipo.getSelectedItem() == "Ordenador"){
+            if(cbxTipo.getSelectedItem().equals("Ordenador")){
                 txtNombreArchivo.setVisible(false);
                 lblNombreArchivo.setVisible(false);
             }
@@ -498,7 +532,7 @@ public class frmDispositivo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void cbxMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMarcaActionPerformed
-        // TODO add your handling code here:
+        verComboMarca();
     }//GEN-LAST:event_cbxMarcaActionPerformed
 
     private void cbxModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxModeloActionPerformed
