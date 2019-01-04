@@ -2,17 +2,22 @@
 package capa.usuario;
 
 
+import java.awt.event.ItemEvent;
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.Formatter;
 import java.util.Properties;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 
 public class frmDispositivo extends javax.swing.JFrame {
@@ -26,6 +31,7 @@ public class frmDispositivo extends javax.swing.JFrame {
     File [] registros1 = contenedor1.listFiles();
     String [] titulo = {"Nombre", "Tipo", "Marca", "Modelo", "Numero Serie", "IP", "Nombre Archivo"};
     DefaultTableModel dtm = new DefaultTableModel(null, titulo);
+    DefaultComboBoxModel modeloMarca, modeloModelo;
     
     private  void  RegTable(){
         for (int i = 0; i < registros.length; i++) {
@@ -44,51 +50,39 @@ public class frmDispositivo extends javax.swing.JFrame {
         tblDispositivo.setModel(dtm);
     }
     
-    private void verComboTipo(){
-        
-            File url = new File(directorio1+"TipoDispositivo.properties");
-            try {
-                FileInputStream fis = new FileInputStream(url);
-                DataInputStream dis = new DataInputStream(fis);
-                BufferedReader br = new BufferedReader(new InputStreamReader(dis));
-                String strLine;
-                while((strLine = br.readLine())!= null){
-                    cbxTipo.addItem(strLine);
-                }
-            } catch (Exception e) {
-            }
-    }
-    
-    private void verComboMarca(){
-        if (cbxTipo.getSelectedItem().equals("Ordenador")) {
-            File url = new File(directorio1+"MarcaOrdenadores.properties");
-            try {
-                FileInputStream fis = new FileInputStream(url);
-                DataInputStream dis = new DataInputStream(fis);
-                BufferedReader br = new BufferedReader(new InputStreamReader(dis));
-                String strLine;
-                while((strLine = br.readLine())!= null){
-                    cbxMarca.addItem(strLine);
-                    fis.close();
-                }
-            } catch (Exception e) {
-            }
-        }else if (cbxTipo.getSelectedItem().equals("Medidor")) {
-            File url = new File(directorio1+"MarcaMedidores.properties");
-            try {
-                FileInputStream fis = new FileInputStream(url);
-                DataInputStream dis = new DataInputStream(fis);
-                BufferedReader br = new BufferedReader(new InputStreamReader(dis));
-                String strLine;
-                while((strLine = br.readLine())!= null){
-                    cbxMarca.addItem(strLine);
-                    fis.close();
-                }
-            } catch (Exception e) {
-            }
+    public void verComboTipo(){
+        Properties oTipo = new Properties();
+        InputStream esArchivo;
+        try {
+            esArchivo = new FileInputStream(directorio1+"TipoDispositivo.properties");
+            oTipo.load(esArchivo);
+        } catch (Exception e) {
+            System.out.println(e.toString());
         }
+        for (Enumeration elementos = oTipo.keys(); elementos.hasMoreElements(); ) {
+            Object itemString = elementos.nextElement();
+            cbxTipo.addItem(oTipo.getProperty(itemString.toString()));
+        }
+     }
+    
+    
+    /*private void verComboMarca(){
+        try {
+            String marcas[] = new String[3];
+            File archivo = new File(directorio1+"MarcaOrdenadores.properties");
+            FileReader leer = new FileReader(archivo);
+            BufferedReader br = new BufferedReader(leer);
+            for (int i = 0; i < archivo.length(); ) {
+                marcas[i]= br.readLine();
+            }
+            modeloMarca = new DefaultComboBoxModel(marcas);
+            cbxMarca.setModel(modeloMarca);
+            br.close();
+        } catch (IOException e) {
+        }
+    
             
-    }
+    }*/
     
     
     
@@ -96,7 +90,7 @@ public class frmDispositivo extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         verComboTipo();
-        verComboMarca();
+        //verComboMarca();
         RegTable();
     }
     
@@ -266,6 +260,11 @@ public class frmDispositivo extends javax.swing.JFrame {
 
         lblTipo.setText("Tipo:");
 
+        cbxTipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxTipoItemStateChanged(evt);
+            }
+        });
         cbxTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxTipoActionPerformed(evt);
@@ -323,14 +322,12 @@ public class frmDispositivo extends javax.swing.JFrame {
             }
         });
 
-        cbxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Schneider", "Electro Industries", "HP" }));
         cbxMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxMarcaActionPerformed(evt);
             }
         });
 
-        cbxModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "ION7650", "Nexus1500", "ProDesk 600" }));
         cbxModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxModeloActionPerformed(evt);
@@ -532,12 +529,22 @@ public class frmDispositivo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void cbxMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMarcaActionPerformed
-        verComboMarca();
+        //verComboMarca();
     }//GEN-LAST:event_cbxMarcaActionPerformed
 
     private void cbxModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxModeloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxModeloActionPerformed
+
+    private void cbxTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxTipoItemStateChanged
+         if(evt.getStateChange() == ItemEvent.SELECTED)
+       {
+           if(this.cbxTipo.getSelectedIndex()>0)
+           {
+               this.cbxMarca.setModel(modeloMarca);
+           }
+       }
+    }//GEN-LAST:event_cbxTipoItemStateChanged
 
     /**
      * @param args the command line arguments

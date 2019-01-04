@@ -215,6 +215,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbxTipoItemStateChanged"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxTipoActionPerformed"/>
               </Events>
               <AuxValues>
@@ -298,12 +299,7 @@
             <Component class="javax.swing.JComboBox" name="cbxMarca">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value=""/>
-                    <StringItem index="1" value="Schneider"/>
-                    <StringItem index="2" value="Electro Industries"/>
-                    <StringItem index="3" value="HP"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
               <Events>
@@ -316,12 +312,7 @@
             <Component class="javax.swing.JComboBox" name="cbxModelo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value=""/>
-                    <StringItem index="1" value="ION7650"/>
-                    <StringItem index="2" value="Nexus1500"/>
-                    <StringItem index="3" value="ProDesk 600"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
               <Events>
