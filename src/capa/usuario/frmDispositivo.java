@@ -3,10 +3,10 @@ package capa.usuario;
 
 
 import java.awt.event.ItemEvent;
-import java.io.BufferedReader;
+//import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
+//import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,18 +33,16 @@ public class frmDispositivo extends javax.swing.JFrame {
     DefaultTableModel dtm = new DefaultTableModel(null, titulo);
     DefaultComboBoxModel modeloMarca, modeloModelo;
     
-    private  void  RegTable(){
-        for (int i = 0; i < registros.length; i++) {
-            File url = new File(directorio+registros[i].getName());
+    private  void  RegistroTabla(){
+        for (File registro : registros) {
+            File url = new File(directorio + registro.getName());
             try {
                 FileInputStream fis = new FileInputStream(url);
                 Properties mostrar = new Properties();
                 mostrar.load(fis);
-                String filas [] = {registros[i].getName().replace(".properties", ""),
-                mostrar.getProperty("Tipo"), mostrar.getProperty("Marca"), mostrar.getProperty("Modelo"),
-                mostrar.getProperty("NumeroSerie"), mostrar.getProperty("IpDispositivo"), mostrar.getProperty("NombreArchivo")};
+                String[] filas = {registro.getName().replace(".properties", ""), mostrar.getProperty("Tipo"), mostrar.getProperty("Marca"), mostrar.getProperty("Modelo"), mostrar.getProperty("NumeroSerie"), mostrar.getProperty("IpDispositivo"), mostrar.getProperty("NombreArchivo")};
                 dtm.addRow(filas);
-            } catch (Exception e) {
+            }catch (IOException e) {
             }
         }
         tblDispositivo.setModel(dtm);
@@ -56,7 +54,7 @@ public class frmDispositivo extends javax.swing.JFrame {
         try {
             esArchivo = new FileInputStream(directorio1+"TipoDispositivo.properties");
             oTipo.load(esArchivo);
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println(e.toString());
         }
         for (Enumeration elementos = oTipo.keys(); elementos.hasMoreElements(); ) {
@@ -65,39 +63,94 @@ public class frmDispositivo extends javax.swing.JFrame {
         }
      }
     
-    
-    /*private void verComboMarca(){
+    public void verComboMarcaOrdenador(){
+        Properties oMarca = new Properties();
+        InputStream archivoOrdenadores;
         try {
-            String marcas[] = new String[3];
-            File archivo = new File(directorio1+"MarcaOrdenadores.properties");
-            FileReader leer = new FileReader(archivo);
-            BufferedReader br = new BufferedReader(leer);
-            for (int i = 0; i < archivo.length(); ) {
-                marcas[i]= br.readLine();
-            }
-            modeloMarca = new DefaultComboBoxModel(marcas);
-            cbxMarca.setModel(modeloMarca);
-            br.close();
+            archivoOrdenadores = new FileInputStream(directorio1+"MarcaOrdenadores.properties");
+            oMarca.load(archivoOrdenadores);
         } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+        for (Enumeration elementos = oMarca.keys(); elementos.hasMoreElements(); ) {
+            Object itemString = elementos.nextElement();
+            cbxMarca.addItem(oMarca.getProperty(itemString.toString()));
+        }
+     }
+    
+    private void verComboMarcaMedidor(){
+        Properties oMarca = new Properties();
+        InputStream archivoOrdenadores;
+        try {
+            archivoOrdenadores = new FileInputStream(directorio1+"MarcaMedidores.properties");
+            oMarca.load(archivoOrdenadores);
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+        for (Enumeration elementos = oMarca.keys(); elementos.hasMoreElements(); ) {
+            Object itemString = elementos.nextElement();
+            cbxMarca.addItem(oMarca.getProperty(itemString.toString()));
+        }
+    }
+    
+    private void verComboModeloOrdenador(){
+        Properties oMarca = new Properties();
+        InputStream archivoOrdenadores;
+        try {
+            archivoOrdenadores = new FileInputStream(directorio1+"ModeloHP.properties");
+            oMarca.load(archivoOrdenadores);
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+        for (Enumeration elementos = oMarca.keys(); elementos.hasMoreElements(); ) {
+            Object itemString = elementos.nextElement();
+            cbxModelo.addItem(oMarca.getProperty(itemString.toString()));
+        }
+    }
+    
+    private void verComboModeloMedidorNexus(){
+        Properties oMarca = new Properties();
+        InputStream archivoOrdenadores;
+        try {
+            archivoOrdenadores = new FileInputStream(directorio1+"ModeloNexus.properties");
+            oMarca.load(archivoOrdenadores);
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+        for (Enumeration elementos = oMarca.keys(); elementos.hasMoreElements(); ) {
+            Object itemString = elementos.nextElement();
+            cbxModelo.addItem(oMarca.getProperty(itemString.toString()));
+        }
+    }
+    
+    private void verComboModeloMedidorION(){
+        Properties oMarca = new Properties();
+        InputStream archivoOrdenadores;
+        try {
+            archivoOrdenadores = new FileInputStream(directorio1+"ModeloION.properties");
+            oMarca.load(archivoOrdenadores);
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+        for (Enumeration elementos = oMarca.keys(); elementos.hasMoreElements(); ) {
+            Object itemString = elementos.nextElement();
+            cbxModelo.addItem(oMarca.getProperty(itemString.toString()));
         }
     
             
-    }*/
-    
-    
+    }
     
     public frmDispositivo() {
         initComponents();
         this.setLocationRelativeTo(null);
         verComboTipo();
-        //verComboMarca();
-        RegTable();
+        RegistroTabla();
     }
     
     private  void ActualizarTabla(){
         registros = contenedor.listFiles();
         dtm.setRowCount(0);
-        RegTable();
+        RegistroTabla();
     }
     
     private void Crear(){
@@ -121,8 +174,8 @@ public class frmDispositivo extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(rootPane, "Archivo creado correctamente");
                         ActualizarTabla();
                     }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(rootPane,"No se pudo crear");
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(rootPane,"No se pudo crear"+e);
                 }
                 
             }
@@ -144,7 +197,7 @@ public class frmDispositivo extends javax.swing.JFrame {
                     txtNumeroSerie.setText(mostrar.getProperty("NumeroSerie"));
                     txtIpDispositivo.setText(mostrar.getProperty("IpDispositivo"));
                     txtNombreArchivo.setText(mostrar.getProperty("NombreAchivo"));
-                } catch (Exception e) {
+                } catch (IOException e) {
                 }
             }else{
                 JOptionPane.showMessageDialog(rootPane, "El Registro no Existe");
@@ -179,7 +232,7 @@ public class frmDispositivo extends javax.swing.JFrame {
                     editar.close();
                     JOptionPane.showMessageDialog(rootPane, "Modificación de datos Correcta");
                     ActualizarTabla();
-                } catch (Exception e) {
+                } catch (IOException e) {
                     JOptionPane.showConfirmDialog(rootPane,"Error"+ e);
                 }
             }else{
@@ -208,7 +261,7 @@ public class frmDispositivo extends javax.swing.JFrame {
                     if (confirmar == JOptionPane.YES_OPTION) {
                         
                     }
-                } catch (Exception e) {
+                } catch (IOException e) {
                 }
             }
         }
@@ -322,6 +375,11 @@ public class frmDispositivo extends javax.swing.JFrame {
             }
         });
 
+        cbxMarca.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxMarcaItemStateChanged(evt);
+            }
+        });
         cbxMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxMarcaActionPerformed(evt);
@@ -539,12 +597,40 @@ public class frmDispositivo extends javax.swing.JFrame {
     private void cbxTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxTipoItemStateChanged
          if(evt.getStateChange() == ItemEvent.SELECTED)
        {
-           if(this.cbxTipo.getSelectedIndex()>0)
+           if(this.cbxTipo.getSelectedItem().equals("Ordenador"))
            {
-               this.cbxMarca.setModel(modeloMarca);
+               cbxMarca.removeAllItems();
+               verComboMarcaOrdenador();
+           }else if (this.cbxTipo.getSelectedItem().equals("Medidor"))
+           {
+               cbxMarca.removeAllItems();
+               verComboMarcaMedidor();
+           }else{
+               this.cbxMarca.removeAllItems();
            }
        }
     }//GEN-LAST:event_cbxTipoItemStateChanged
+
+    private void cbxMarcaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxMarcaItemStateChanged
+        if(evt.getStateChange() == ItemEvent.SELECTED)
+       {
+           if(this.cbxMarca.getSelectedItem().equals("HP"))
+           {
+               cbxModelo.removeAllItems();
+               verComboModeloOrdenador();
+           }else if (this.cbxMarca.getSelectedItem().equals("Schneider Electric"))
+           {
+               cbxModelo.removeAllItems();
+               verComboModeloMedidorION();
+           }else if (this.cbxMarca.getSelectedItem().equals("Electro Industries"))
+           {
+               cbxModelo.removeAllItems();
+               verComboModeloMedidorNexus();
+           }else{
+               this.cbxModelo.removeAllItems();
+           }
+       }
+    }//GEN-LAST:event_cbxMarcaItemStateChanged
 
     /**
      * @param args the command line arguments
