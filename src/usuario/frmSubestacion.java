@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capa.usuario;
+package usuario;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Formatter;
 import java.util.Properties;
@@ -21,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class frmSubestacion extends javax.swing.JFrame {
 
     String barra = File.separator;
-    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra+"propiedades"+barra+"subestaciones"+barra;
+    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"datos"+barra+"propiedades"+barra+"subestaciones"+barra;
     
     File contenedor = new File(directorio);
     File [] registros = contenedor.listFiles();
@@ -39,7 +40,7 @@ public class frmSubestacion extends javax.swing.JFrame {
                 String filas [] = {registros[i].getName().replace(".properties", ""),
                 mostrar.getProperty("NivelTension")};
                 dtm.addRow(filas);
-            } catch (Exception e) {
+            } catch (IOException e) {
             }
         }
         tblSubestaciones.setModel(dtm);
@@ -76,7 +77,7 @@ public class frmSubestacion extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(rootPane, "Archivo creado correctamente");
                         ActualizarTabla();
                     }
-                } catch (Exception e) {
+                } catch (IOException e) {
                     JOptionPane.showMessageDialog(rootPane,"No se pudo crear");
                 }
                 
@@ -94,7 +95,7 @@ public class frmSubestacion extends javax.swing.JFrame {
                     Properties mostrar = new Properties();
                     mostrar.load(fis);
                     txtNivelTension.setText(mostrar.getProperty("NivelTension"));
-                } catch (Exception e) {
+                } catch (IOException e) {
                 }
             }else{
                 JOptionPane.showMessageDialog(rootPane, "El Registro no Existe");
@@ -119,7 +120,7 @@ public class frmSubestacion extends javax.swing.JFrame {
                     editar.close();
                     JOptionPane.showMessageDialog(rootPane, "Modificación de datos Correcta");
                     ActualizarTabla();
-                } catch (Exception e) {
+                } catch (IOException e) {
                     JOptionPane.showConfirmDialog(rootPane,"Error"+ e);
                 }
             }else{
@@ -148,7 +149,7 @@ public class frmSubestacion extends javax.swing.JFrame {
                     if (confirmar == JOptionPane.YES_OPTION) {
                         
                     }
-                } catch (Exception e) {
+                } catch (IOException e) {
                 }
             }
         }
@@ -175,6 +176,7 @@ public class frmSubestacion extends javax.swing.JFrame {
         tblSubestaciones = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestión de Subestaciones");
 
         jPanelDatosGenerales.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Generales"));
         jPanelDatosGenerales.setToolTipText("");
@@ -288,6 +290,11 @@ public class frmSubestacion extends javax.swing.JFrame {
             }
         ));
         tblSubestaciones.setColumnSelectionAllowed(true);
+        tblSubestaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSubestacionesMouseClicked(evt);
+            }
+        });
         jScrollPaneTabla1.setViewportView(tblSubestaciones);
         tblSubestaciones.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
@@ -367,6 +374,12 @@ public class frmSubestacion extends javax.swing.JFrame {
         Crear();;
     }//GEN-LAST:event_btnAdicionarSubestacionActionPerformed
 
+    private void tblSubestacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSubestacionesMouseClicked
+        int filaSeleccionada = tblSubestaciones.rowAtPoint(evt.getPoint());
+        txtNombreSubestacion.setText(String.valueOf(tblSubestaciones.getValueAt(filaSeleccionada, 0)));
+        txtNivelTension.setText(String.valueOf(tblSubestaciones.getValueAt(filaSeleccionada, 1)));
+    }//GEN-LAST:event_tblSubestacionesMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -395,10 +408,8 @@ public class frmSubestacion extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmSubestacion().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new frmSubestacion().setVisible(true);
         });
     }
 

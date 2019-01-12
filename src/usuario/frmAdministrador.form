@@ -38,18 +38,6 @@
             <Property name="text" type="java.lang.String" value="Herramientas"/>
           </Properties>
           <SubComponents>
-            <Menu class="javax.swing.JMenu" name="mnuAdministrador">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Administrador"/>
-              </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="itmUsuario">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Usuario"/>
-                  </Properties>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
             <Menu class="javax.swing.JMenu" name="mnuGestionar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gestionar"/>
@@ -92,6 +80,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Acerca de..."/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="itmAcercaMouseClicked"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

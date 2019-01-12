@@ -1,5 +1,5 @@
 
-package capa.datos;
+package datos;
 
 import java.io.File;
 import java.io.FileOutputStream;

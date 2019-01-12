@@ -1,28 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package capa.usuario;
 
-import com.sun.org.apache.xerces.internal.impl.dtd.models.ContentModelValidator;
+package usuario;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Formatter;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.net.*;
+import negocio.Red;
 
-/**
- *
- * @author Omar Castillo
- */
+
 public class frmRed extends javax.swing.JFrame {
-
+    Red red = new Red();
     String barra = File.separator;
-    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra+"propiedades"+barra+"redes"+barra;
+    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"datos"+barra+"propiedades"+barra+"redes"+barra;
     
     File contenedor = new File(directorio);
     File [] registros = contenedor.listFiles();
@@ -39,7 +34,7 @@ public class frmRed extends javax.swing.JFrame {
                 String filas [] = {registros[i].getName().replace(".properties", ""),
                 mostrar.getProperty("Nombre"), mostrar.getProperty("IpPuertaEnlace"), mostrar.getProperty("IpDestino")};
                 dtm.addRow(filas);
-            } catch (Exception e) {
+            } catch (IOException e) {
             }
         }
         tblRed.setModel(dtm);
@@ -61,7 +56,6 @@ public class frmRed extends javax.swing.JFrame {
             String archivo = txtId.getText()+".properties";
             File crea_ubicacion = new File(directorio);
             File crea_archivo = new File(directorio+archivo);
-            
             if (txtNombreRed.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane,"No hay ID");
         }else{
@@ -77,7 +71,7 @@ public class frmRed extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(rootPane, "Archivo creado correctamente");
                         ActualizarTabla();
                     }
-                } catch (Exception e) {
+                } catch (IOException e) {
                     JOptionPane.showMessageDialog(rootPane,"No se pudo crear");
                 }
                 
@@ -97,7 +91,7 @@ public class frmRed extends javax.swing.JFrame {
                     txtNombreRed.setText(mostrar.getProperty("Nombre"));
                     txtIpPuertaEnlace.setText(mostrar.getProperty("IpPuertaEnlace"));
                     txtIpDestino.setText(mostrar.getProperty("IpDestino"));
-                } catch (Exception e) {
+                } catch (IOException e) {
                 }
             }else{
                 JOptionPane.showMessageDialog(rootPane, "El Registro no Existe");
@@ -126,7 +120,7 @@ public class frmRed extends javax.swing.JFrame {
                     editar.close();
                     JOptionPane.showMessageDialog(rootPane, "Modificación de datos Correcta");
                     ActualizarTabla();
-                } catch (Exception e) {
+                } catch (IOException e) {
                     JOptionPane.showConfirmDialog(rootPane,"Error"+ e);
                 }
             }else{
@@ -155,7 +149,7 @@ public class frmRed extends javax.swing.JFrame {
                     if (confirmar == JOptionPane.YES_OPTION) {
                         
                     }
-                } catch (Exception e) {
+                } catch (IOException e) {
                 }
             }
         }
@@ -185,6 +179,7 @@ public class frmRed extends javax.swing.JFrame {
         tblRed = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestión de Redes");
 
         jPanelDatosGenerales.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Generales"));
 
@@ -195,6 +190,12 @@ public class frmRed extends javax.swing.JFrame {
         lblNombreRed.setText("Nombre de Red:");
 
         lblPuertaEnlace.setText("Puerta de Enlace:");
+
+        txtIpPuertaEnlace.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIpPuertaEnlaceKeyTyped(evt);
+            }
+        });
 
         lblDireccionDestino.setText("Dirección IP Destino:");
 
@@ -307,6 +308,11 @@ public class frmRed extends javax.swing.JFrame {
             }
         ));
         tblRed.setColumnSelectionAllowed(true);
+        tblRed.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblRedMouseClicked(evt);
+            }
+        });
         jScrollPaneTabla2.setViewportView(tblRed);
         tblRed.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
@@ -388,6 +394,23 @@ public class frmRed extends javax.swing.JFrame {
         Eliminar();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void tblRedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRedMouseClicked
+        int filaSeleccionada = tblRed.rowAtPoint(evt.getPoint());
+        txtId.setText(String.valueOf(tblRed.getValueAt(filaSeleccionada, 0)));
+        txtNombreRed.setText(String.valueOf(tblRed.getValueAt(filaSeleccionada, 1)));
+        txtIpPuertaEnlace.setText(String.valueOf(tblRed.getValueAt(filaSeleccionada, 2)));
+        txtIpDestino.setText(String.valueOf(tblRed.getValueAt(filaSeleccionada, 3)));
+    }//GEN-LAST:event_tblRedMouseClicked
+
+    private void txtIpPuertaEnlaceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIpPuertaEnlaceKeyTyped
+        try {
+            InetAddress puertaIP;
+            
+            } catch (IllegalArgumentException e) {
+              System.out.println(e);
+            }
+    }//GEN-LAST:event_txtIpPuertaEnlaceKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -416,10 +439,8 @@ public class frmRed extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmRed().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new frmRed().setVisible(true);
         });
     }
 

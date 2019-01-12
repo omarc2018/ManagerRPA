@@ -1,13 +1,28 @@
 
-package capa.usuario;
+package usuario;
 
-import capa.negocio.Usuario;
+import negocio.Usuario;
 import javax.swing.JOptionPane;
 
 
 public class frmAcceso extends javax.swing.JFrame {
-
-
+    Usuario acceso = new Usuario();
+    
+    private void ingresar(){
+        acceso.setUsuario(txtUsuario.getText());
+        acceso.setContrasenia(Integer.parseInt(txtContrasenia.getText()));
+        String usuario = "admin";
+        int contrasenia = 789;
+        if(acceso.getUsuario().equals(usuario)&& contrasenia == acceso.getContrasenia()){
+            frmAdministrador vAdministrador = new frmAdministrador();
+            vAdministrador.setVisible(true);
+            dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Usuario y/o Contraseña incorrecta");
+        }
+    }
+    
     public frmAcceso() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -28,7 +43,7 @@ public class frmAcceso extends javax.swing.JFrame {
         lblUsuario = new javax.swing.JLabel();
         lblContraseña = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
-        txtContraseña = new javax.swing.JPasswordField();
+        txtContrasenia = new javax.swing.JPasswordField();
         btnEntrar = new javax.swing.JButton();
         lblVersión = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
@@ -62,13 +77,13 @@ public class frmAcceso extends javax.swing.JFrame {
 
         lblUsuario.setForeground(new java.awt.Color(102, 102, 102));
         lblUsuario.setText("Usuario:");
-        getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, -1, -1));
+        getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, -1, 30));
 
         lblContraseña.setForeground(new java.awt.Color(102, 102, 102));
         lblContraseña.setText("Contraseña:");
-        getContentPane().add(lblContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, -1, -1));
+        getContentPane().add(lblContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, -1, 30));
         getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 210, 190, -1));
-        getContentPane().add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 190, -1));
+        getContentPane().add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 190, -1));
 
         btnEntrar.setText("Entrar");
         btnEntrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -93,18 +108,7 @@ public class frmAcceso extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseClicked
-        // Entrar al sistema:
-        Usuario admin = new Usuario("admin", "789");
-        String Pass = new String(txtContraseña.getPassword());
-        if(txtUsuario.getText().equals(admin.usuario)&& Pass.equals(admin.contraseña)){
-            frmAdministrador vAdministrador = new frmAdministrador();
-            vAdministrador.setVisible(true);
-            dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Usuario y/o Contraseña incorrecta");
-        }
-
+        ingresar();
     }//GEN-LAST:event_btnEntrarMouseClicked
 
     /**
@@ -138,10 +142,8 @@ public class frmAcceso extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmAcceso().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new frmAcceso().setVisible(true);
         });
     }
 
@@ -154,7 +156,7 @@ public class frmAcceso extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo2;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblVersión;
-    private javax.swing.JPasswordField txtContraseña;
+    private javax.swing.JPasswordField txtContrasenia;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

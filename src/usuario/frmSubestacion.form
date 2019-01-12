@@ -3,6 +3,7 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Gesti&#xf3;n de Subestaciones"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -48,42 +49,40 @@
             <TitledBorder title="Datos Generales"/>
           </Border>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jPanelTablaRedesRegistradas" alignment="1" max="32767" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="jPanelRed" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jPanelTablaSubestacionesRegistradas" max="32767" attributes="0"/>
+                      <Component id="jPanelSubestacion" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanelRed" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jPanelTablaRedesRegistradas" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanelSubestacion" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jPanelTablaSubestacionesRegistradas" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="jPanelRed">
+        <Container class="javax.swing.JPanel" name="jPanelSubestacion">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder justification="2" title="Parametros de Red"/>
+                <TitledBorder justification="2" title="Subestaci&#xf3;n"/>
               </Border>
             </Property>
           </Properties>
@@ -95,131 +94,96 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblDireccionDestino" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblPuertaEnlace" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblNombreRed" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblID" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="lblNombreSubestacion" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="txtNombreRed" alignment="0" pref="281" max="32767" attributes="0"/>
-                                  <Component id="txtIpPuertaEnlace" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtIpDestino" max="32767" attributes="0"/>
-                                  <Component id="txtId" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="txtNombreSubestacion" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="lblNivelTension" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                              <Component id="txtNivelTension" min="-2" pref="91" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                              <Component id="lblNivelTension1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnAdicionarSubestacion1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Component id="btnAdicionarSubestacion" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnMostrar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnModificarSubestacion1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnModificarSubestacion" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblID" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtId" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblNombreSubestacion" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtNombreSubestacion" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="21" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblNombreRed" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtNombreRed" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                              <Component id="lblNivelTension1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtNivelTension" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lblNivelTension" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace pref="57" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblPuertaEnlace" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtIpPuertaEnlace" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblDireccionDestino" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtIpDestino" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnAdicionarSubestacion1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnModificarSubestacion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAdicionarSubestacion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnModificarSubestacion" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnMostrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblID">
+            <Component class="javax.swing.JLabel" name="lblNombreSubestacion">
               <Properties>
-                <Property name="text" type="java.lang.String" value="ID:"/>
+                <Property name="text" type="java.lang.String" value="Nombre de Subestaci&#xf3;n:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtId">
+            <Component class="javax.swing.JTextField" name="txtNombreSubestacion">
             </Component>
-            <Component class="javax.swing.JLabel" name="lblNombreRed">
+            <Component class="javax.swing.JLabel" name="lblNivelTension">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Nombre de Red:"/>
+                <Property name="text" type="java.lang.String" value="Nivel de Tensi&#xf3;n:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtNombreRed">
+            <Component class="javax.swing.JTextField" name="txtNivelTension">
             </Component>
-            <Component class="javax.swing.JLabel" name="lblPuertaEnlace">
+            <Component class="javax.swing.JLabel" name="lblNivelTension1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Puerta de Enlace:"/>
+                <Property name="text" type="java.lang.String" value="kV"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtIpPuertaEnlace">
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblDireccionDestino">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Direcci&#xf3;n IP Destino:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtIpDestino">
-            </Component>
-            <Component class="javax.swing.JButton" name="btnAdicionarSubestacion1">
+            <Component class="javax.swing.JButton" name="btnAdicionarSubestacion">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Adicionar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarSubestacion1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarSubestacionActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnMostrar">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Mostrar"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMostrarActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnModificarSubestacion1">
+            <Component class="javax.swing.JButton" name="btnModificarSubestacion">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Modificar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarSubestacion1ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnEliminar">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Eliminar"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarSubestacionActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnCancelar">
@@ -230,13 +194,29 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JButton" name="btnEliminar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Eliminar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnMostrar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Mostrar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMostrarActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanelTablaRedesRegistradas">
+        <Container class="javax.swing.JPanel" name="jPanelTablaSubestacionesRegistradas">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Redes Registradas"/>
+                <TitledBorder title="Subestaciones Registradas"/>
               </Border>
             </Property>
           </Properties>
@@ -244,27 +224,27 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPaneTabla2" alignment="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="jScrollPaneTabla1" alignment="0" pref="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPaneTabla2" pref="196" max="32767" attributes="0"/>
+                      <Component id="jScrollPaneTabla1" pref="138" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="jScrollPaneTabla2">
+            <Container class="javax.swing.JScrollPane" name="jScrollPaneTabla1">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="tblRed">
+                <Component class="javax.swing.JTable" name="tblSubestaciones">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="0" rowCount="4"/>
@@ -277,6 +257,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblSubestacionesMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

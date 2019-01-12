@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capa.negocio;
+package negocio;
 
 /**
  *
  * @author Omar Castillo
  */
 public class Subestacion {
-    String Nombre, NivelTensión;
+    private String Nombre, NivelTensión;
+    
+    public Subestacion(){
+    }
 
     public Subestacion(String Nombre, String NivelTensión, String Celda) {
         this.Nombre = Nombre;

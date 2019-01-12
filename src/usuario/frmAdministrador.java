@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capa.usuario;
+package usuario;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -39,8 +39,6 @@ public class frmAdministrador extends javax.swing.JFrame {
         itmAbrir = new javax.swing.JMenuItem();
         itmSalir = new javax.swing.JMenuItem();
         mnuHerramientas = new javax.swing.JMenu();
-        mnuAdministrador = new javax.swing.JMenu();
-        itmUsuario = new javax.swing.JMenuItem();
         mnuGestionar = new javax.swing.JMenu();
         itmSubestacion = new javax.swing.JMenuItem();
         itmDispositivo = new javax.swing.JMenuItem();
@@ -91,13 +89,6 @@ public class frmAdministrador extends javax.swing.JFrame {
 
         mnuHerramientas.setText("Herramientas");
 
-        mnuAdministrador.setText("Administrador");
-
-        itmUsuario.setText("Usuario");
-        mnuAdministrador.add(itmUsuario);
-
-        mnuHerramientas.add(mnuAdministrador);
-
         mnuGestionar.setText("Gestionar");
 
         itmSubestacion.setText("Subestación");
@@ -131,6 +122,11 @@ public class frmAdministrador extends javax.swing.JFrame {
         mnuAyuda.setText("Ayuda");
 
         itmAcerca.setText("Acerca de...");
+        itmAcerca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itmAcercaMouseClicked(evt);
+            }
+        });
         mnuAyuda.add(itmAcerca);
 
         mnuBar.add(mnuAyuda);
@@ -162,22 +158,28 @@ public class frmAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_itmAbrirActionPerformed
 
     private void itmDispositivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmDispositivoActionPerformed
-        frmDispositivo vNuevoDevice = new frmDispositivo();
-        vNuevoDevice.setVisible(true);
+        frmDispositivo ventanaDevice = new frmDispositivo();
+        ventanaDevice.setVisible(true);
         dispose();
     }//GEN-LAST:event_itmDispositivoActionPerformed
 
     private void itmSubestacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSubestacionActionPerformed
-        frmSubestacion vNuevaSubestacion = new frmSubestacion();
-        vNuevaSubestacion.setVisible(true);
+        frmSubestacion ventanaSubestacion = new frmSubestacion();
+        ventanaSubestacion.setVisible(true);
         dispose();
     }//GEN-LAST:event_itmSubestacionActionPerformed
 
     private void itmRedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmRedActionPerformed
-        frmRed vNuevaRed = new frmRed();
-        vNuevaRed.setVisible(true);
+        frmRed ventanaRed = new frmRed();
+        ventanaRed.setVisible(true);
         dispose();
     }//GEN-LAST:event_itmRedActionPerformed
+
+    private void itmAcercaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itmAcercaMouseClicked
+        frmAcerca ventanaAcerca = new frmAcerca();
+        ventanaAcerca.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_itmAcercaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -208,10 +210,8 @@ public class frmAdministrador extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmAdministrador().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new frmAdministrador().setVisible(true);
         });
     }
 
@@ -222,11 +222,9 @@ public class frmAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmRed;
     private javax.swing.JMenuItem itmSalir;
     private javax.swing.JMenuItem itmSubestacion;
-    private javax.swing.JMenuItem itmUsuario;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblNombreArchivo;
     private javax.swing.JLabel lblRutaArchivo;
-    private javax.swing.JMenu mnuAdministrador;
     private javax.swing.JMenu mnuArchivo;
     private javax.swing.JMenu mnuAyuda;
     private javax.swing.JMenuBar mnuBar;

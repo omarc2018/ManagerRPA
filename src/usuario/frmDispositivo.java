@@ -1,12 +1,10 @@
 
-package capa.usuario;
+package usuario;
 
 
 import java.awt.event.ItemEvent;
-//import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-//import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,8 +21,8 @@ import javax.swing.table.DefaultTableModel;
 public class frmDispositivo extends javax.swing.JFrame {
 
     String barra = File.separator;
-    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra+"propiedades"+barra+"dispositivos"+barra;
-    String directorio1 = System.getProperty("user.dir")+barra+"src"+barra+"capa"+barra+"datos"+barra;
+    String directorio = System.getProperty("user.dir")+barra+"src"+barra+"datos"+barra+"propiedades"+barra+"dispositivos"+barra;
+    String directorio1 = System.getProperty("user.dir")+barra+"src"+barra+"datos"+barra;
     File contenedor = new File(directorio);
     File contenedor1 = new File(directorio1);
     File [] registros = contenedor.listFiles();
@@ -33,7 +31,7 @@ public class frmDispositivo extends javax.swing.JFrame {
     DefaultTableModel dtm = new DefaultTableModel(null, titulo);
     DefaultComboBoxModel modeloMarca, modeloModelo;
     
-    private  void  RegistroTabla(){
+    private  void  registroTabla(){
         for (File registro : registros) {
             File url = new File(directorio + registro.getName());
             try {
@@ -62,6 +60,18 @@ public class frmDispositivo extends javax.swing.JFrame {
             cbxTipo.addItem(oTipo.getProperty(itemString.toString()));
         }
      }
+    
+    private  void seleccionarTipo(){
+        if(cbxTipo.getSelectedItem().equals("Medidor")){
+            txtNombreArchivo.setVisible(true);
+            lblNombreArchivo.setVisible(true);
+        }else{
+            if(cbxTipo.getSelectedItem().equals("Ordenador")){
+                txtNombreArchivo.setVisible(false);
+                lblNombreArchivo.setVisible(false);
+            }
+        }
+    }
     
     public void verComboMarcaOrdenador(){
         Properties oMarca = new Properties();
@@ -144,16 +154,16 @@ public class frmDispositivo extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         verComboTipo();
-        RegistroTabla();
+        registroTabla();
     }
     
-    private  void ActualizarTabla(){
+    private  void actualizarTabla(){
         registros = contenedor.listFiles();
         dtm.setRowCount(0);
-        RegistroTabla();
+        registroTabla();
     }
     
-    private void Crear(){
+    private void crear(){
         String archivo = txtNombreDispositivo.getText()+".properties";
             File crea_ubicacion = new File(directorio);
             File crea_archivo = new File(directorio+archivo);
@@ -172,7 +182,7 @@ public class frmDispositivo extends javax.swing.JFrame {
                                     "IpDispositivo="+txtIpDispositivo.getText(),"NombreArchivo="+txtNombreArchivo.getText());
                         crea.close();
                         JOptionPane.showMessageDialog(rootPane, "Archivo creado correctamente");
-                        ActualizarTabla();
+                        actualizarTabla();
                     }
                 } catch (IOException e) {
                     JOptionPane.showMessageDialog(rootPane,"No se pudo crear"+e);
@@ -181,7 +191,7 @@ public class frmDispositivo extends javax.swing.JFrame {
             }
         }
     
-    private void Mostrar(){
+    private void mostrar(){
         File url = new File(directorio+txtNombreDispositivo.getText()+".properties");
         if (txtNombreDispositivo.getText().equals("")){
             JOptionPane.showMessageDialog(rootPane, "Indique el ID para Mostrar");
@@ -205,7 +215,7 @@ public class frmDispositivo extends javax.swing.JFrame {
         }
     }
     
-    private void Modificar(){
+    private void modificar(){
         File url = new File(directorio+txtNombreDispositivo.getText()+".properties");
         if (txtNombreDispositivo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Nombre de Registro a Modificar");
@@ -231,7 +241,7 @@ public class frmDispositivo extends javax.swing.JFrame {
                     guardar.println(Archivo+txtNombreArchivo.getText());
                     editar.close();
                     JOptionPane.showMessageDialog(rootPane, "Modificación de datos Correcta");
-                    ActualizarTabla();
+                    actualizarTabla();
                 } catch (IOException e) {
                     JOptionPane.showConfirmDialog(rootPane,"Error"+ e);
                 }
@@ -241,7 +251,7 @@ public class frmDispositivo extends javax.swing.JFrame {
         }
     }
     
-    private void Eliminar(){
+    private void eliminar(){
         File url = new File(directorio+txtNombreDispositivo.getText()+".properties");
         String btns [] = {"Eliminar", "Cancelar"};
         if (txtNombreDispositivo.getText().equals("")) {
@@ -256,7 +266,7 @@ public class frmDispositivo extends javax.swing.JFrame {
                     if (confirmar == JOptionPane.YES_OPTION) {
                         url.delete();
                         JOptionPane.showMessageDialog(rootPane, "¡Registro eliminado permanentemente!");
-                        ActualizarTabla();
+                        actualizarTabla();
                     }
                     if (confirmar == JOptionPane.YES_OPTION) {
                         
@@ -265,6 +275,12 @@ public class frmDispositivo extends javax.swing.JFrame {
                 }
             }
         }
+    }
+    
+    private  void cancelar(){
+        frmAdministrador ADM = new frmAdministrador();
+        ADM.setVisible(true);
+        dispose();
     }
     
     @SuppressWarnings("unchecked")
@@ -297,7 +313,7 @@ public class frmDispositivo extends javax.swing.JFrame {
         tblDispositivo = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Gestión de Dispositivos y Red");
+        setTitle("Gestión de Dispositivos");
 
         jPanelDatosGenerales.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Generales"));
         jPanelDatosGenerales.setToolTipText("");
@@ -485,6 +501,11 @@ public class frmDispositivo extends javax.swing.JFrame {
             }
         ));
         tblDispositivo.setColumnSelectionAllowed(true);
+        tblDispositivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDispositivoMouseClicked(evt);
+            }
+        });
         jScrollPaneTabla.setViewportView(tblDispositivo);
         tblDispositivo.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -552,38 +573,28 @@ public class frmDispositivo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIpDispositivoActionPerformed
 
     private void btnAdicionarDispositivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarDispositivoActionPerformed
-        Crear();
+        crear();
     }//GEN-LAST:event_btnAdicionarDispositivoActionPerformed
     
     
     private void btnModificarDispositivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarDispositivoActionPerformed
-        Modificar();
+        modificar();
     }//GEN-LAST:event_btnModificarDispositivoActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
-        Mostrar();
+        mostrar();
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        frmAdministrador ADM = new frmAdministrador();
-        ADM.setVisible(true);
-        dispose();
+        cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void cbxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoActionPerformed
-        if(cbxTipo.getSelectedItem().equals("Medidor")){
-            txtNombreArchivo.setVisible(true);
-            lblNombreArchivo.setVisible(true);
-        }else{
-            if(cbxTipo.getSelectedItem().equals("Ordenador")){
-                txtNombreArchivo.setVisible(false);
-                lblNombreArchivo.setVisible(false);
-            }
-        }
+        seleccionarTipo();
     }//GEN-LAST:event_cbxTipoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        Eliminar();
+        eliminar();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void cbxMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMarcaActionPerformed
@@ -632,6 +643,17 @@ public class frmDispositivo extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_cbxMarcaItemStateChanged
 
+    private void tblDispositivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDispositivoMouseClicked
+        int filaSeleccionada = tblDispositivo.rowAtPoint(evt.getPoint());
+        txtNombreDispositivo.setText(String.valueOf(tblDispositivo.getValueAt(filaSeleccionada, 0)));
+        cbxTipo.setSelectedItem(String.valueOf(tblDispositivo.getValueAt(filaSeleccionada, 1)));
+        cbxMarca.setSelectedItem(String.valueOf(tblDispositivo.getValueAt(filaSeleccionada, 2)));
+        cbxModelo.setSelectedItem(String.valueOf(tblDispositivo.getValueAt(filaSeleccionada, 3)));
+        txtNumeroSerie.setText(String.valueOf(tblDispositivo.getValueAt(filaSeleccionada, 4)));
+        txtIpDispositivo.setText(String.valueOf(tblDispositivo.getValueAt(filaSeleccionada, 5)));
+        txtNombreArchivo.setText(String.valueOf(tblDispositivo.getValueAt(filaSeleccionada, 6)));
+    }//GEN-LAST:event_tblDispositivoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -675,10 +697,8 @@ public class frmDispositivo extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmDispositivo().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new frmDispositivo().setVisible(true);
         });
     }
 

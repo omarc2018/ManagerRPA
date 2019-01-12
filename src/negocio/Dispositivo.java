@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capa.negocio;
+package negocio;
 
 /**
  *
  * @author Omar Castillo
  */
 public class Dispositivo {
-    String NombreDispositivo, Tipo, Marca, Modelo, NumeroSerie, IpDispositivo, NombreArchivo;
-
+    private String NombreDispositivo, Tipo, Marca, Modelo, NumeroSerie, IpDispositivo, NombreArchivo;
+    
+    public Dispositivo(){
+    }
+    
     public Dispositivo(String NombreDispositivo, String Tipo, String Marca, String Modelo, String NumeroSerie, String IpDispositivo, String Archivo, String NombreArchivo) {
         this.NombreDispositivo = NombreDispositivo;
         this.Tipo = Tipo;

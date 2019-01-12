@@ -1,17 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package capa.negocio;
 
-/**
- *
- * @author Omar Castillo
- */
+package negocio;
+
+
 public class Archivo {
-    String Nombre, Extension;
-
+    private String Nombre, Extension;
+    
+    public Archivo(){
+    }
+    
     public Archivo(String Nombre, String Extension) {
         this.Nombre = Nombre;
         this.Extension = Extension;
