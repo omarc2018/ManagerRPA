@@ -24,7 +24,7 @@ public class frmRed extends javax.swing.JFrame {
     String [] titulo = {"Id", "Nombre", "IP Local", "IP Destino"};
     DefaultTableModel dtm = new DefaultTableModel(null, titulo);
     
-    private  void  RegTable(){
+    private  void  regTable(){
         for (int i = 0; i < registros.length; i++) {
             File url = new File(directorio+registros[i].getName());
             try {
@@ -43,16 +43,16 @@ public class frmRed extends javax.swing.JFrame {
     
     public frmRed() {
         initComponents();
-        RegTable();
+        regTable();
     }
     
-    private  void ActualizarTabla(){
+    private  void actualizarTabla(){
         registros = contenedor.listFiles();
         dtm.setRowCount(0);
-        RegTable();
+        regTable();
     }
 
-    private void Crear(){
+    private void crear(){
             String archivo = txtId.getText()+".properties";
             File crea_ubicacion = new File(directorio);
             File crea_archivo = new File(directorio+archivo);
@@ -69,7 +69,7 @@ public class frmRed extends javax.swing.JFrame {
                                     "IpPuertaEnlace="+txtIpPuertaEnlace.getText(),"IpDestino="+txtIpDestino.getText());
                         crea.close();
                         JOptionPane.showMessageDialog(rootPane, "Archivo creado correctamente");
-                        ActualizarTabla();
+                        actualizarTabla();
                     }
                 } catch (IOException e) {
                     JOptionPane.showMessageDialog(rootPane,"No se pudo crear");
@@ -78,7 +78,7 @@ public class frmRed extends javax.swing.JFrame {
             }
         }
     
-    private void Mostrar(){
+    private void mostrar(){
         File url = new File(directorio+txtId.getText()+".properties");
         if (txtId.getText().equals("")){
             JOptionPane.showMessageDialog(rootPane, "Indique el ID para Mostrar");
@@ -99,7 +99,7 @@ public class frmRed extends javax.swing.JFrame {
         }
     }
     
-    private void Modificar(){
+    private void modificar(){
         File url = new File(directorio+txtId.getText()+".properties");
         if (txtId.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Nombre de Registro a Modificar");
@@ -119,7 +119,7 @@ public class frmRed extends javax.swing.JFrame {
                     guardar.println(DireccionDestino+txtIpDestino.getText());
                     editar.close();
                     JOptionPane.showMessageDialog(rootPane, "Modificación de datos Correcta");
-                    ActualizarTabla();
+                    actualizarTabla();
                 } catch (IOException e) {
                     JOptionPane.showConfirmDialog(rootPane,"Error"+ e);
                 }
@@ -129,7 +129,7 @@ public class frmRed extends javax.swing.JFrame {
         }
     }
     
-    private void Eliminar(){
+    private void eliminar(){
         File url = new File(directorio+txtId.getText()+".properties");
         String btns [] = {"Eliminar", "Cancelar"};
         if (txtId.getText().equals("")) {
@@ -144,7 +144,7 @@ public class frmRed extends javax.swing.JFrame {
                     if (confirmar == JOptionPane.YES_OPTION) {
                         url.delete();
                         JOptionPane.showMessageDialog(rootPane, "¡Registro eliminado permanentemente!");
-                        ActualizarTabla();
+                        actualizarTabla();
                     }
                     if (confirmar == JOptionPane.YES_OPTION) {
                         
@@ -373,11 +373,11 @@ public class frmRed extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModificarSubestacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarSubestacion1ActionPerformed
-        Modificar();
+        modificar();
     }//GEN-LAST:event_btnModificarSubestacion1ActionPerformed
 
     private void btnAdicionarSubestacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarSubestacion1ActionPerformed
-        Crear();
+        crear();
     }//GEN-LAST:event_btnAdicionarSubestacion1ActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -387,11 +387,11 @@ public class frmRed extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
-        Mostrar();
+        mostrar();
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        Eliminar();
+        eliminar();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tblRedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRedMouseClicked
